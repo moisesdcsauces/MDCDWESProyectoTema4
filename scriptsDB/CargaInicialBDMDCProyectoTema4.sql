@@ -1,7 +1,7 @@
 -- Carga inicial
 
 
-USE DB2MDCDWESProyectoTema4;
+USE DBMDCDWESProyectoTema4;
 
 INSERT INTO T02_Departamento
   (T02_CodDepartamento,

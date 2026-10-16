@@ -58,26 +58,21 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nombre de la Práctica</th>
-                    <th>Ejecutar</th>
-                    <th>Código Fuente</th>
+                    <th>Enunciado de la Práctica</th>
+                    <th colspan="2">PDO</th>
+                    <th colspan="2">MySQLI</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>0</td>
-                    <td>Ejercicio (Hola Mundo)</td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-
-                <tr>
                     <td>1</td>
-                    <td>Ejercicio</td>
+                    <td> Conexión a la base de datos con la cuenta usuario y tratamiento de errores</td>
+                    <td>
+                        <a href="codigoPHP/ejercicio01PDO.php" class="btn btn-ejecutar">Ejecutar</a>
+                    </td>
+                    <td>
+                        <a href="mostrarcodigo/muestraEjercicio01PDO.php" class="btn btn-codigo">Código</a>
+                    </td>
                     <td>
 
                     </td>
@@ -88,7 +83,13 @@
                 
                 <tr>
                     <td>2</td>
-                    <td>Ejercicio</td>
+                    <td>Mostrar el contenido de la tabla Departamento y el número de registros</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
@@ -99,7 +100,13 @@
                 
                 <tr>
                     <td>3</td>
-                    <td>Ejercicio</td>
+                    <td>Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
@@ -110,7 +117,13 @@
                 
                 <tr>
                     <td>4</td>
-                    <td>Ejercicio</td>
+                    <td>Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos)</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
@@ -121,7 +134,13 @@
                 
                 <tr>
                     <td>5</td>
-                    <td>Ejercicio</td>
+                    <td>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
@@ -132,7 +151,13 @@
                 
                 <tr>
                     <td>6</td>
-                    <td>Ejercicio</td>
+                    <td>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
@@ -143,7 +168,13 @@
                 
                 <tr>
                     <td>7</td>
-                    <td>Ejercicio</td>
+                    <td>Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de nuestra base de datos. (IMPORTAR). El fichero importado se encuentra en el directorio .../tmp/ del servidor</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
@@ -154,7 +185,13 @@
                 
                 <tr>
                     <td>8</td>
-                    <td>Ejercicio</td>
+                    <td>Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR). El fichero exportado se encuentra en el directorio .../tmp/ del servidor</td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
                     <td>
 
                     </td>
