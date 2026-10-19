@@ -74,10 +74,10 @@
                         <a href="mostrarcodigo/muestraEjercicio01PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio01MYSQli.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio01MYSQli.php" class="btn btn-codigo">Código</a>
                     </td>
                 </tr>
                 

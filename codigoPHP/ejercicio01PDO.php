@@ -1,4 +1,9 @@
 <?php
+/*
+ * Moisés Alberto Dominguez Cruz
+ * 19/10/2026
+ * Ejercicio 01 (Tema 4) - Conexión a la base de datos MariaDB mediante MYSQLi y PDO con control de excepciones.
+ */
 
 echo "<a href='../indexProyectoTema4.php'>⬅ Volver al inicio</a><hr>";
 
