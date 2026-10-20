@@ -52,6 +52,12 @@
                         <a href="mostrarcodigo/muestraScriptBorrar.php" class="btn btn-codigo">Código</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>Archivo configDB00</td>
+                    <td>
+                        <a href="mostrarcodigo/muestraConfigDB00.php" class="btn btn-codigo">Código</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <table>
