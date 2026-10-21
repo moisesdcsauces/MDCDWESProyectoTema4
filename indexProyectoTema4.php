@@ -29,7 +29,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Nombre Scripts</th>
+                    <th>Ficheros auxiliares</th>
                     <th>Mostrar</th>
                 </tr>
             </thead>
@@ -53,7 +53,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Archivo configDB00</td>
+                    <td>configDB00</td>
                     <td>
                         <a href="mostrarcodigo/muestraConfigDB00.php" class="btn btn-codigo">Código</a>
                     </td>

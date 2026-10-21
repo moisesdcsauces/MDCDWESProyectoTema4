@@ -32,15 +32,18 @@ try {
 echo "<hr>";
 
 try {
-    // Intentamos la conexion con un usuario incorrecto para forzar la excepción
-    $oConexionPDO = new PDO(HOST, "usuarioIncorrecto", PASS);
+    // Establecemos la conexion usando las constantes de configDB00.php
+    $oConexionMYSQLi = new mysqli(SERVER, "USUARIOINCORRECTO", PASS, DBNAME);
 
-    // Como la conexion va a fallar, nunca muestra este mensaje
-    echo "Conectado a MariaDB con PDO de forma exitosa.<br/>";
+    echo "Conectado a MariaDB con MYSQLi de forma exitosa.<br/>";
+    echo "Informacion del servidor: " . $oConexionMYSQLi->server_info . "<br/>"; // Muestra la informacion del servidor
 
-} catch (PDOException $oExceptionPDO) { // Lanza la excepcion 
-    echo 'Error: ' . $oExceptionPDO->getMessage() . '<br/>'; // Captura el error
-    echo 'Código de error: ' . $oExceptionPDO->getCode() . '<br/>'; // Captura el codifgo de error
+    // Cerramos la conexion
+    $oConexionMYSQLi->close();
+
+} catch (mysqli_sql_exception $miExceptionMySQLi) { // Lanza la excepcion para errores en lugar de para advertencias
+    echo 'Error: ' . $miExceptionMySQLi->getMessage() . '<br/>'; // Captura el error
+    echo 'Codigo de error: ' . $miExceptionMySQLi->getCode() . '<br/>'; // Captura el codigo de error
 }
 ?>
 
