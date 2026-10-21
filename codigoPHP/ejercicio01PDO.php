@@ -8,7 +8,7 @@
 echo "<a href='../indexProyectoTema4.php'>⬅ Volver al inicio</a><hr>";
 
 // Inicio del codigo PHP que el servidor debe procesar
-require_once '../config/configDB00.php';
+require_once '../config/configDBPDO.php';
 
 $atributosConexion = ["AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
     "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION", "TIMEOUT"

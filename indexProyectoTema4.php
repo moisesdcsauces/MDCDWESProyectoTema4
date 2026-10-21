@@ -53,9 +53,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>configDB00</td>
+                    <td>configDBPDO</td>
                     <td>
-                        <a href="mostrarcodigo/muestraConfigDB00.php" class="btn btn-codigo">Código</a>
+                        <a href="mostrarcodigo/muestraConfigDBPDO.php" class="btn btn-codigo">Código</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>configDBMYSQLi</td>
+                    <td>
+                        <a href="mostrarcodigo/muestraConfigDBMYSQLi.php" class="btn btn-codigo">Código</a>
                     </td>
                 </tr>
             </tbody>
@@ -91,10 +97,10 @@
                     <td>2</td>
                     <td>Mostrar el contenido de la tabla Departamento y el número de registros</td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio02PDO.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio02PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
 

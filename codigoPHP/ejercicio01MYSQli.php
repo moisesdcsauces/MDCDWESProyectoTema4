@@ -8,7 +8,7 @@
 echo "<a href='../indexProyectoTema4.php'>⬅ Volver al inicio</a><hr>";
 
 // Importacion del archivo de configuracion que contiene las constantes de conexion
-require_once '../config/configDB00.php';
+require_once '../config/configDBMYSQLi.php';
 
 // Errores y manejo de excepciones en MySQLi
 $controlador = new mysqli_driver();

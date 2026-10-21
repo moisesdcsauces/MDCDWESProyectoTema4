@@ -9,7 +9,7 @@
 echo "<a href='../indexProyectoTema4.php'>⬅ Volver al inicio</a><hr>";
 
 // Inicio del codigo PHP que el servidor debe procesar
-require_once '../config/configDB00.php';
+require_once '../config/configDBPDO.php';
 
 // Imprimir el query aqui
 
@@ -26,7 +26,7 @@ try {
     echo '<td>Codigo</td>';
     echo '<td>Descripcion</td>';
     echo '<td>FechaCreacion</td>';
-    echo '<td>VolumenDeNegocio</td>';
+    echo '<td>Volumen</td>';
     echo '<td>FechaBaja</td>';
     echo '</tr>';
 
