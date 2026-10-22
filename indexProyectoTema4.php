@@ -64,6 +64,12 @@
                         <a href="mostrarcodigo/muestraConfigDBMYSQLi.php" class="btn btn-codigo">Código</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>libreriaValidacion</td>
+                    <td>
+                        <a href="mostrarcodigo/muestraLibreriaValidacion.php" class="btn btn-codigo">Código</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <table>
@@ -114,10 +120,10 @@
                     <td>3</td>
                     <td>Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores</td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio03PDO.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio03PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
 

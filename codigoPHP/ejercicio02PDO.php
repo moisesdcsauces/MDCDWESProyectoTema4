@@ -21,7 +21,7 @@ try {
 
     $consulta = $miDB->query('SELECT * FROM T02_Departamento');
 
-    echo '<table>';
+    echo '<table style="border-collapse: collapse">';
     echo '<tr class="titulo">';
     echo '<td>Codigo</td>';
     echo '<td>Descripcion</td>';
