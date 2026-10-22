@@ -30,18 +30,18 @@ try {
     echo '<td>FechaBaja</td>';
     echo '</tr>';
 
-    while ($registro = $consulta->fetch()) {
+    while ($registro = $consulta->fetchObject()) {
         echo '<tr>';
-        echo '<td>' . $registro['T02_CodDepartamento'] . '</td>';
-        echo '<td>' . $registro["T02_DescDepartamento"] . '</td>';
+        echo '<td>' . $registro->T02_CodDepartamento . '</td>';
+        echo '<td>' . $registro->T02_DescDepartamento . '</td>';
 
-        $oFechaCreacionDepartamento = new DateTime($registro["T02_FechaCreacionDepartamento"]);
+        $oFechaCreacionDepartamento = new DateTime($registro->T02_FechaCreacionDepartamento);
         echo '<td>' . $oFechaCreacionDepartamento->format('d/m/Y') . '</td>';
-        echo '<td>' . number_format($registro["T02_VolumenDeNegocio"], 2, ',', '.') . ' €</td>';
-        if (is_null($registro["T02_FechaBajaDepartamento"])) {
+        echo '<td>' . number_format($registro->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+        if (is_null($registro->T02_FechaBajaDepartamento)) {
             echo '<td></td>';
         } else {
-            $oFechaBajaDepartamento = new DateTime($registro["T02_FechaBajaDepartamento"]);
+            $oFechaBajaDepartamento = new DateTime($registro->T02_FechaBajaDepartamento);
             echo '<td>' . $oFechaBajaDepartamento->format('d/m/Y') . '</td>';
         }
         echo '</tr>';
