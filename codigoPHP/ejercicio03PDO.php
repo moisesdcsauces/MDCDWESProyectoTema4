@@ -5,14 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ejercicio 03 PDO - Añadir Departamento</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@400;500;600;700;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../webroot/css/styles.css">
+        <link rel="stylesheet" href="../webroot/css/estilos.css">
 
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-                background-color: #f4f5f7;
-                color: #333;
-            }
 
             .enlace-volver {
                 color: #474a8a;
@@ -45,9 +44,10 @@
                 margin-bottom: 5px;
             }
 
+            /* Se reduce margin-bottom a 0 para ceder el espacio al span de error */
             input[type="text"],
             input[type="date"] {
-                margin-bottom: 5px;
+                margin-bottom: 0px; 
                 padding: 8px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
@@ -71,10 +71,12 @@
                 background-color: #5c6096;
             }
 
+            /* min-height reserva un espacio fijo para que el formulario no salte */
             .error {
                 color: red;
                 display: block;
                 font-size: 13px;
+                min-height: 16px; 
                 margin-top: 3px;
                 margin-bottom: 5px;
             }
@@ -135,7 +137,18 @@
             }
         </style>
     </head>
-    <body>
+    <body class="pagina-ajustada">
+        <!-- Bloque: Cabecera -->
+        <header id="site-header" class="cabecera">
+          <div class="cabecera__contenedor">
+            <img class="monograma" src="../../webroot/images/cruz.png" alt="">
+            <h1 class="titulo-header">TEMA 4: Técnicas de acceso a datos en PHP</h1>
+            <img class="monograma" src="../../webroot/images/cruz.png" alt="">
+          </div>
+        </header>
+
+        <main>
+        <div class="container">
         <!--
         -- Moisés Alberto Dominguez Cruz
         -- 19/10/2026
@@ -289,46 +302,50 @@
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" name="formulario" method="post" novalidate>
                 <h2>Añadir Departamento</h2>
 
-                <!-- Campo Codigo de Departamento -->
+                <!-- Campo Código -->
                 <label for="codigoDep">Código:</label>
                 <input type="text" name="codigoDep" id="codigoDep" value="<?php echo (!empty($_REQUEST['codigoDep']) && empty($aError['codigoDep'])) ? $_REQUEST['codigoDep'] : ''; ?>"/>
-                <?php
-                if (!empty($aError["codigoDep"])) {
-                    echo "<span class='error'>" . $aError['codigoDep'] . "</span>";
-                }
-                ?>
+                <span class='error'><?php echo !empty($aError["codigoDep"]) ? $aError['codigoDep'] : ''; ?></span>
 
                 <!-- Campo Descripción -->
                 <label for="descripcionDep">Descripción:</label>
                 <input type="text" name="descripcionDep" id="descripcionDep" value="<?php echo (!empty($_REQUEST['descripcionDep']) && empty($aError['descripcionDep'])) ? $_REQUEST['descripcionDep'] : ''; ?>"/>
-                <?php
-                if (!empty($aError["descripcionDep"])) {
-                    echo "<span class='error'>" . $aError['descripcionDep'] . "</span>";
-                }
-                ?>
+                <span class='error'><?php echo !empty($aError["descripcionDep"]) ? $aError['descripcionDep'] : ''; ?></span>
 
                 <!-- Campo Fecha de Alta -->
                 <label for="fechaCreacionDep">Fecha de Alta:</label>
                 <input type="date" name="fechaCreacionDep" id="fechaCreacionDep" value="<?php echo (!empty($_REQUEST['fechaCreacionDep']) && empty($aError['fechaCreacionDep'])) ? $_REQUEST['fechaCreacionDep'] : ''; ?>"/>
-                <?php
-                if (!empty($aError["fechaCreacionDep"])) {
-                    echo "<span class='error'>" . $aError['fechaCreacionDep'] . "</span>";
-                }
-                ?>
+                <span class='error'><?php echo !empty($aError["fechaCreacionDep"]) ? $aError['fechaCreacionDep'] : ''; ?></span>
 
                 <!-- Campo Volumen de Negocio -->
                 <label for="volumenNegocioDep">Volumen de Negocio:</label>
                 <input type="text" name="volumenNegocioDep" id="volumenNegocioDep" value="<?php echo (!empty($_REQUEST['volumenNegocioDep']) && empty($aError['volumenNegocioDep'])) ? $_REQUEST['volumenNegocioDep'] : ''; ?>"/>
-                <?php
-                if (!empty($aError["volumenNegocioDep"])) {
-                    echo "<span class='error'>" . $aError['volumenNegocioDep'] . "</span>";
-                }
-                ?>
+                <span class='error'><?php echo !empty($aError["volumenNegocioDep"]) ? $aError['volumenNegocioDep'] : ''; ?></span>
 
                 <p><input type="submit" name="enviar" id="enviar" value="Añadir Departamento"/></p>
             </form>  
             <?php
         }
         ?>
+        </div>
+        </main>
+
+        <!-- Bloque: Pie -->
+        <footer class="pie">
+          <div class="pie__redes">
+            <a class="pie__red" href="../indexProyectoTema4.php" title="Ir al índice del Tema 4" aria-label="Ir al índice del Tema 4">
+              <img src="../../webroot/images/icons/casa.png" alt="">
+            </a>
+            <a class="pie__red" href="https://github.com/moisesdcsauces/MDCDWESProyectoTema4" target="_blank" rel="noopener" aria-label="GitHub">
+              <img src="../../webroot/images/icons/github.png" alt="">
+            </a>
+            <a class="pie__red" href="https://www.linkedin.com/in/mois%C3%A9s-alberto-dom%C3%ADnguez-cruz/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <img src="../../webroot/images/icons/linkedin.png" alt="">
+            </a>
+          </div>
+            <p class="pie__texto">© <a class="titulo-enlace" href="../../index.html"> Moisés Alberto Domínguez Cruz</a> - IES Los Sauces<span id="year"></span></p>
+        </footer>
+
+        <script src="../../webroot/js/main.js" defer></script>
     </body>
 </html>
