@@ -137,10 +137,10 @@
                     <td>4</td>
                     <td>Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos)</td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio04PDO.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio04PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
 
