@@ -29,7 +29,7 @@
       .tabla-atributos {
           width: 100%;
           border-collapse: collapse;
-          font-family: 'Inter', sans-serif;
+          font-family: sans-serif;
       }
 
       .tabla-atributos th {
