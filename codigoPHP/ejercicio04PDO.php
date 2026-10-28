@@ -24,7 +24,7 @@
                 margin-bottom: 15px;
             }
 
-            /* ===== TABLA (ejercicios que muestran datos) ===== */
+            /*TABLA*/
             .tabla-departamentos {
                 width: 100%;
                 max-width: 900px;
@@ -70,8 +70,12 @@
                 color: #555;
                 font-size: 15px;
             }
+            
+            .buscador{
+                text-align: center;
+            }
 
-            /* ===== FORMULARIO (ejercicios con formulario) ===== */
+            /*FORMULARIO*/
             .container form {
                 display: inline-block;
                 text-align: left;
@@ -82,7 +86,17 @@
                 max-width: 450px;
                 width: 100%;
             }
-
+            
+            .container label.titulo-busqueda {
+                font-weight: bold;
+                display: block;
+                text-align: center;
+                color: #777bb4;
+                font-size: 18px;
+                margin-top: 5px;
+                margin-bottom: 15px;
+            }
+          
             .container label {
                 font-weight: bold;
                 display: block;
@@ -90,18 +104,31 @@
                 margin-top: 12px;
                 margin-bottom: 5px;
             }
+            
+            .container input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-bottom: 0;
+            }
 
-            .container input[type="submit"] {
+            .container input[type="submit"],
+            .container button[type="submit"] {
                 margin-top: 20px;
                 font-weight: bold;
                 padding: 10px;
                 width: 100%;
                 color: white;
+                background-color: #777bb4;
                 border: none;
                 border-radius: 4px;
+                cursor: pointer;
             }
-            
-            .container input[type="submit"]:hover {
+
+            .container input[type="submit"]:hover,
+            .container button[type="submit"]:hover {
                 background-color: #5c6096;
             }
 
@@ -109,6 +136,7 @@
                 color: red;
                 display: block;
                 font-size: 13px;
+                min-height: 16px;
                 margin-top: 3px;
                 margin-bottom: 5px;
             }
@@ -146,12 +174,12 @@
 
                 <?php
                 // Archivo con las variables de conexion a la base de datos
-                require_once '../config/configDBPDO.php';
+                require_once '../config/configDBPDOCasa.php';
 
                 // Libreria de validacion de formularios
                 require_once '../core/231018libreriaValidacion.php';
 
-                // Variable flag indicadora del estado de la validacion
+                // Flag para controlar si se debe ejecutar la consulta
                 $entradaOK = true;
 
                 // Array para almacenar mensajes de error
@@ -164,28 +192,94 @@
                     'departamentoBus' => "",
                 ];
 
-                // Comprueba si el formulario ha sido enviado mediante el boton 'enviar'
+                // Comprueba si el formulario ha sido enviado mediante el boton 'buscar'
                 if (isset($_REQUEST["buscar"])) {
-                    // Valida el departamento que estamos buscando (maximo 50 caracteres). Uso del metodo estatico comprobarAlfabetico
-                    $aError["departamentoBus"] = validacionFormularios::comprobarAlfabetico($_REQUEST["departamentoBus"], 50, 1, 0);                   
+                    // Valida el departamento que estamos buscando (maximo 50 caracteres). Opcional -> 0
+                    $aError["departamentoBus"] = validacionFormularios::comprobarAlfabetico($_REQUEST["departamentoBus"], 50, 1, 0);
+                    
+                    // Si la validación devuelve algún error, bloqueamos la entrada
+                    if ($aError["departamentoBus"] != null) {
+                        $entradaOK = false;
+                    }
                 }
                 ?>
 
-                <section class="buscador">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <label for="departamentoBus">Descripcion del departamento</label><br><br>
+                <div class="buscador"">
+                    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                        <label for="departamentoBus" class="titulo-busqueda">Mantenimiento de Departamentos</label><br>
 
-                        <input type="text" name="departamentoBus" id="departamentoBus" placeholder="Vacio muestra todos los departamentos" value="<?php echo isset($_REQUEST['departamentoBus']) ? htmlspecialchars($_REQUEST['departamentoBus']) : ''; ?>">
+                        <input type="text" name="departamentoBus" id="departamentoBus" placeholder="Descripción (vacío busca todos)" value="<?php echo isset($_REQUEST['departamentoBus']) ? htmlspecialchars($_REQUEST['departamentoBus']) : ''; ?>">
                         <span class="error"><?php echo $aError['departamentoBus']; ?></span>
-                        <br>
 
                         <button type="submit" name="buscar">Buscar</button>
-
                     </form>  
-                </section>
+                </div>
 
                 <?php
+                // Solo nos conectamos a la BD si la validación ha sido correcta
+                if ($entradaOK) {
                     
+                    $aRespuesta["departamentoBus"] = isset($_REQUEST['departamentoBus']) ? $_REQUEST["departamentoBus"] : "";
+
+                    try {
+                        // Instanciacion del objeto PDO para conectar a MariaDB usando las constantes del archivo de configuracion
+                        $miDB = new PDO(HOST, USER, PASS);
+                        $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                        // Construccion de la sentencia SQL concatenando como pide el profesor                 
+                        $listaDepartamentos = $miDB->query("select * from T02_Departamento where T02_DescDepartamento like '%" . $aRespuesta['departamentoBus'] . "%'");
+                        
+                        // Comprobamos que existan registros para esa búsqueda antes de pintar la tabla
+                        if ($listaDepartamentos->rowCount() > 0) {
+                            
+                            echo '<table class="tabla-departamentos" style="margin: 15px auto;">';
+                            echo '<thead>';
+                            echo '<tr>';
+                            echo '<th class="texto-centro">Código</th>';
+                            echo '<th>Descripción</th>';
+                            echo '<th class="texto-centro">Fecha de Alta</th>';
+                            echo '<th class="texto-derecha">Volumen de Negocio</th>';
+                            echo '<th class="texto-centro">Fecha de Baja</th>';
+                            echo '</tr>';
+                            echo '</thead>';
+                            echo '<tbody>';
+                            
+                            while ($oDepartamento = $listaDepartamentos->fetchObject()) {
+                                echo '<tr>';
+                                echo '<td class="texto-centro"><b>' . $oDepartamento->T02_CodDepartamento . '</b></td>';
+                                echo '<td>' . $oDepartamento->T02_DescDepartamento . '</td>';
+
+                                // Formateo de la fecha de alta a formato español (d/m/Y)
+                                $fechaCreacionDepartamento = new DateTime($oDepartamento->T02_FechaCreacionDepartamento);
+                                echo '<td class="texto-centro">' . $fechaCreacionDepartamento->format('d/m/Y') . '</td>';
+
+                                // Formateo del numero a moneda española
+                                echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+
+                                // Comprobacion en la fecha de baja
+                                if (is_null($oDepartamento->T02_FechaBajaDepartamento)) {
+                                    echo '<td class="texto-centro">-</td>';
+                                } else {
+                                    $fechaBajaDepartamento = new DateTime($oDepartamento->T02_FechaBajaDepartamento);
+                                    echo '<td class="texto-centro">' . $fechaBajaDepartamento->format('d/m/Y') . '</td>';
+                                }
+                                echo '</tr>';
+                            }
+                            
+                            echo '</tbody>';
+                            echo '</table>';                                                  
+                        }                       
+                    } catch (PDOException $miExcepcionPDO) { 
+                        // Lanza la Exception PDOException cuando ocurre un error.
+                        echo "<div class='error' style='text-align: center; margin-top: 20px;'>";
+                        echo "Código de error: " . $miExcepcionPDO->getCode() . "<br/>";
+                        echo "Mensaje de error: " . $miExcepcionPDO->getMessage();
+                        echo "</div>";
+                    } finally {
+                        // fin de la conexion con la base de datos
+                        unset($miDB);
+                    }
+                }
                 ?>
             </div>
         </main>
