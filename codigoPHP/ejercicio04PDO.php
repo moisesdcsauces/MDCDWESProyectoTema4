@@ -174,7 +174,7 @@
 
                 <?php
                 // Archivo con las variables de conexion a la base de datos
-                require_once '../config/configDBPDOCasa.php';
+                require_once '../config/configDBPDO.php';
 
                 // Libreria de validacion de formularios
                 require_once '../core/231018libreriaValidacion.php';

@@ -166,7 +166,7 @@
                     require_once '../core/231018libreriaValidacion.php';
 
                     // Archivo de configuracion de conexión a la base de datos PDO
-                    require_once '../config/configDBPDOCasa.php';
+                    require_once '../config/configDBPDO.php';
 
                     // Variable flag indicadora del estado de la validacion
                     $entradaOK = true;
