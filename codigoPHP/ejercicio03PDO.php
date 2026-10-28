@@ -221,6 +221,7 @@
             try {
                 // Instanciacion del objeto PDO para conectar a MariaDB usando las constantes del archivo de configuracion
                 $miDB = new PDO(HOST, USER, PASS);
+                $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 // Asignacion de variables preparadas para la inserción
                 $sCodigoDepInsert = $aRespuesta["codigoDep"];
