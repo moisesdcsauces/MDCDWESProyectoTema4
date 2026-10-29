@@ -226,7 +226,7 @@
                         $miDB = new PDO(HOST, USER, PASS);
                         $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                        // Construccion de la sentencia SQL concatenando como pide el profesor                 
+                        // Construccion de la sentencia SQL concatenando                
                         $listaDepartamentos = $miDB->query("select * from T02_Departamento where T02_DescDepartamento like '%" . $aRespuesta['departamentoBus'] . "%'");
                         
                         // Comprobamos que existan registros para esa búsqueda antes de pintar la tabla
