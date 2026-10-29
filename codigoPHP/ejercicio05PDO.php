@@ -188,7 +188,7 @@
                     $miDB->beginTransaction(); // Deshabilito el modo autocommit
                     // Recorrido con un foreach insertando la sentencia sql.
                     foreach ($aDepartamentos as $departamento) {
-                        $sqlInsert = 'INSERT into T02_Departamento VALUES ("' . $aDepartamentos["codDepartamento"] . '","' . $aDepartamentos["descripcionDepartamento"] . '", now(),"' . $aDepartamentos["volumenDepartamento"] . ',null)';
+                        $sqlInsert = 'INSERT into T02_Departamento VALUES ("' . $departamento["codDepartamento"] . '","' . $departamento["descripcionDepartamento"] . '", now(),"' . $departamento["volumenDepartamento"] . '",null)';
                         echo '<p>' . $sqlInsert . '</p>';
                         $miDB->exec($sqlInsert);
                     }
