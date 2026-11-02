@@ -171,10 +171,10 @@
                     <td>6</td>
                     <td>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno</td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio06PDO.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio06PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
 
