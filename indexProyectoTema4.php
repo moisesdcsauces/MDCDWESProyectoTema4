@@ -205,10 +205,10 @@
                     <td>8</td>
                     <td>Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR). El fichero exportado se encuentra en el directorio .../tmp/ del servidor</td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio08PDO.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio08PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
 

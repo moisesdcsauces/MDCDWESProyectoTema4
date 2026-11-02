@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<departamentos>
+  <departamento>
+    <codigo>ADM</codigo>
+    <descripcion>Administración</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>COM</codigo>
+    <descripcion>Comercial</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>CON</codigo>
+    <descripcion>Contabilidad</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>FIN</codigo>
+    <descripcion>Finanzas</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>INV</codigo>
+    <descripcion>Investigación</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>NFS</codigo>
+    <descripcion>Departamento Need for Speed</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>NIG</codigo>
+    <descripcion>NIGGA</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>PRA</codigo>
+    <descripcion>Departamento PR Acho</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>TEC</codigo>
+    <descripcion>Tecnología</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>TST</codigo>
+    <descripcion>Departamento de testeo</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>VEN</codigo>
+    <descripcion>Ventas</descripcion>
+  </departamento>
+</departamentos>
