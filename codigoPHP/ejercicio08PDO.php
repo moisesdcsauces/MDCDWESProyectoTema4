@@ -91,8 +91,7 @@
                     <!--
                     -- Moisés Alberto Dominguez Cruz
                     -- 28/10/2026
-                    -- Ejercicio 07 (Tema 4) - Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR).
-                    -- QR: Si no se tiene la carpeta tmp creada, al crearla mira los permisos de esa carpeta.
+                    -- Ejercicio 08 (Tema 4) - Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR).
                     -->
                     <a href='../indexProyectoTema4.php' class='enlace-volver'>⬅ Volver al inicio</a>
                     <hr>
@@ -129,18 +128,26 @@
                                 $documentoXML->formatOutput = true;
 
                                 // Creamos el elemento raiz departamentos y lo añadimos al documento
+                                // Crea un nuevo nodo elemento: https://www.php.net/manual/es/domdocument.createelement.php
                                 $raiz = $documentoXML->createElement('departamentos');
+                                
+                                // Añade un nuevo hijo al final de los hijos: https://www.php.net/manual/es/domnode.appendchild.php
                                 $documentoXML->appendChild($raiz);
 
                                 // Recorremos los registros de la base de datos
                                 while ($oDepartamento = $consultaPreparada->fetchObject()) {
 
                                     // Creamos el departamento para cada registro
+                                    // Uso de createElement: https://www.php.net/manual/es/domdocument.createelement.php
                                     $sDepartamento = $documentoXML->createElement('departamento');
 
                                     // Creamos el codigo, añadimos el texto y lo colgamos de departamento
                                     $sCodigo = $documentoXML->createElement('codigo');
+                                    
+                                    // Crea un nuevo texto: https://www.php.net/manual/es/domdocument.createtextnode.php
                                     $sCodigo->appendChild($documentoXML->createTextNode($oDepartamento->T02_CodDepartamento));
+                                    
+                                    // Uso de appendChild: https://www.php.net/manual/es/domnode.appendchild.php
                                     $sDepartamento->appendChild($sCodigo);
 
                                     // Creamos la descripcion, añadimos el texto y lo colgamos de departamento
@@ -159,6 +166,7 @@
                                 $rutaFicheroGuardar = $directorioTMP . 'departamentos.xml';
 
                                 // Guardamos el archivo XML generado en el servidor
+                                // Guarda el documento XML en un fichero: https://www.php.net/manual/es/domdocument.save.php
                                 $documentoXML->save($rutaFicheroGuardar);
 
                                 // Ruta relativa que el navegador necesita para encontrar el archivo desde 'codigoPHP'
@@ -171,8 +179,6 @@
                                 echo "<a href='{$rutaEnlaceWeb}' target='_blank' style='color: #155724; font-weight: bold; text-decoration: underline;'>Ver archivo XML</a>";
                                 echo "</div>";
                                 
-                            } else {
-                                echo "<div class='error'>No hay departamentos en la base de datos para exportar.</div>";
                             }
                         } catch (PDOException $miExceptionPDO) {
                             // Captura errores de PDO

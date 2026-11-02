@@ -188,10 +188,10 @@
                     <td>7</td>
                     <td>Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de nuestra base de datos. (IMPORTAR). El fichero importado se encuentra en el directorio .../tmp/ del servidor</td>
                     <td>
-
+                        <a href="codigoPHP/ejercicio07PDO.php" class="btn btn-ejecutar">Ejecutar</a>
                     </td>
                     <td>
-
+                        <a href="mostrarcodigo/muestraEjercicio07PDO.php" class="btn btn-codigo">Código</a>
                     </td>
                     <td>
 
