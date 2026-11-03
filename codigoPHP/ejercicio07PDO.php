@@ -91,7 +91,7 @@
                     <!--
                     -- Moisés Alberto Dominguez Cruz
                     -- 02/11/2026
-                    -- Ejercicio 07 (Tema 4) - Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento (IMPORTAR).
+                    -- Ejercicio 07 (Tema 4) - Página web que toma datos de un fichero xml y los añade a la tabla Departamento (IMPORTAR).
                     -->
                     <a href='../indexProyectoTema4.php' class='enlace-volver'>⬅ Volver al inicio</a>
                     <hr>
@@ -108,35 +108,32 @@
                     if (isset($_REQUEST['importar'])) {
 
                         // Calculamos la ruta del archivo XML en la carpeta tmp
-                        $directorioTMP = dirname(__DIR__) . '/tmp/';
-                        $rutaFicheroXML = $directorioTMP . 'departamentos.xml';
+                        $rutaFicheroXML = $_SERVER["DOCUMENT_ROOT"] . '/MDCDWESProyectoTema4/tmp/departamentos.xml';
 
                         // Comprobamos si el archivo existe antes de intentar hacer nada
                         if (file_exists($rutaFicheroXML)) {
-                            
+
                             require_once '../config/configDBPDO.php';
 
                             try {
                                 // Instanciacion del objeto PDO
                                 $miDB = new PDO(HOST, USER, PASS);
+                                $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 // Instanciamos DOMDocument y cargamos el archivo XML
                                 $documentoXML = new DOMDocument();
-                                
-                                // Carga el archivo XML desde un fichero: https://www.php.net/manual/es/domdocument.load.php
                                 $documentoXML->load($rutaFicheroXML);
 
                                 // Obtenemos una lista con todos los elementos departamento
-                                // Busca elementos por su nombre de etiqueta: https://www.php.net/manual/es/domdocument.getelementsbytagname.php
                                 $listaDepartamentosXML = $documentoXML->getElementsByTagName('departamento');
 
-                                // Verificamos que el XML no este vacio
+                                // Verificamos que el XML no este vacío
                                 if ($listaDepartamentosXML->length > 0) {
-                                    
+
                                     // Iniciamos la transaccion para asegurar que o se importan todos, o ninguno
                                     $miDB->beginTransaction();
 
-                                    // Preparamos la consulta de insercion
+                                    // Preparamos la consulta de inserción con parámetros con nombre
                                     $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:CodDepartamento, :DescDepartamento, :FechaCreacionDepartamento, :VolumenDeNegocio, :FechaBajaDepartamento)';
                                     $sentenciaPreparada = $miDB->prepare($sqlInsert);
 
@@ -144,21 +141,24 @@
 
                                     // Recorremos cada departamento del XML
                                     foreach ($listaDepartamentosXML as $departamento) {
-                                        
-                                        // Extraemos los valores leyendo los hijos (<codigo> y <descripcion>)
-                                        // Uso de getElementsByTagName: https://www.php.net/manual/es/domdocument.getelementsbytagname.php
+
                                         $codigo = $departamento->getElementsByTagName('CodDepartamento')->item(0)->nodeValue;
                                         $descripcion = $departamento->getElementsByTagName('DescDepartamento')->item(0)->nodeValue;
                                         $fecha = $departamento->getElementsByTagName('FechaCreacionDepartamento')->item(0)->nodeValue;
                                         $volumen = $departamento->getElementsByTagName('VolumenDeNegocio')->item(0)->nodeValue;
                                         $nullFechaBaja = $departamento->getElementsByTagName('FechaBajaDepartamento')->item(0);
-                                        
-                                        // Operacion ternaria para verificar si existe una fecha de baja vacia en el xml y lo intercambie por null
-                                        $fechaBaja = ($nullFechaBaja && trim($nullFechaBaja->nodeValue) !== '') ? $nullFechaBaja->nodeValue : null;                                      
 
-                                        // Ejecutamos la consulta preparada con los datos extraidos
-                                        $sentenciaPreparada->execute([$codigo, $descripcion, $fecha, $volumen, $fechaBaja]);
-                                        
+                                        $fechaBaja = ($nullFechaBaja && trim($nullFechaBaja->nodeValue) !== '') ? $nullFechaBaja->nodeValue : null;
+
+                                        // Ejecutamos la consulta preparada pasando el array asociativo con los nombres de los campos
+                                        $sentenciaPreparada->execute([
+                                            ':CodDepartamento' => $codigo,
+                                            ':DescDepartamento' => $descripcion,
+                                            ':FechaCreacionDepartamento' => $fecha,
+                                            ':VolumenDeNegocio' => $volumen,
+                                            ':FechaBajaDepartamento' => $fechaBaja
+                                        ]);
+
                                         $registrosImportados++;
                                     }
 
@@ -169,21 +169,20 @@
                                     echo "<h3>Importación completada con éxito.</h3>";
                                     echo "<p>Se han importado <b>{$registrosImportados}</b> departamentos desde el archivo XML a la base de datos.</p>";
                                     echo "</div>";
-
                                 } else {
                                     echo "<div class='error'>El archivo XML esta vacio o no tiene el formato correcto.</div>";
                                 }
                             } catch (PDOException $miExceptionPDO) {
                                 // Si ocurre un error, deshacemos todos los cambios
                                 $miDB->rollBack();
-                                
+
                                 echo "<div class='error'>";
                                 echo "<h3 style='margin-top:0;'>Error al importar en la base de datos.</h3>";
                                 echo "<p>La transaccion ha sido cancelada. Ningun registro ha sido importado.</p>";
                                 echo "<p><b>Mensaje:</b> " . $miExceptionPDO->getMessage() . "</p>";
                                 echo "<p><b>Código:</b> " . $miExceptionPDO->getCode() . "</p>";
                                 echo "</div>";
-                            }finally {
+                            } finally {
                                 unset($miDB);
                             }
                         }

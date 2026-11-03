@@ -112,7 +112,7 @@
 
                         // Comprobamos si el archivo existe
                         if (file_exists($rutaFicheroJSON)) {
-                            
+
                             // Leetodo el contenido del archivo JSON como una unica cadena de texto
                             // https://www.php.net/manual/es/function.file-get-contents.php
                             $textoJSON = file_get_contents($rutaFicheroJSON);
@@ -123,7 +123,7 @@
 
                             // Verificamos que el JSON no este vacio y sea un array valido
                             if (is_array($aDepartamentos) && count($aDepartamentos) > 0) {
-                                
+
                                 require_once '../config/configDBPDO.php';
 
                                 try {
@@ -141,17 +141,23 @@
 
                                     // Recorremos cada departamento del array PHP
                                     foreach ($aDepartamentos as $departamento) {
-                                        
+
                                         // Extraemos los valores. Si FechaBaja esta vacia, le asignamos null.
                                         $codigo = $departamento['CodDepartamento'];
                                         $descripcion = $departamento['DescDepartamento'];
                                         $fecha = $departamento['FechaCreacionDepartamento'];
                                         $volumen = $departamento['VolumenDeNegocio'];
-                                        $fechaBaja = (!empty($departamento['FechaBajaDepartamento'])) ? $departamento['FechaBajaDepartamento'] : null;                                      
+                                        $fechaBaja = (!empty($departamento['FechaBajaDepartamento'])) ? $departamento['FechaBajaDepartamento'] : null;
 
-                                        // Ejecutamos la consulta preparada con los datos extraidos
-                                        $sentenciaPreparada->execute([$codigo, $descripcion, $fecha, $volumen, $fechaBaja]);
-                                        
+                                        // Ejecutamos la consulta preparada pasando un array asociativo con los nombres de los campos
+                                        $sentenciaPreparada->execute([
+                                            ':CodDepartamento' => $codigo,
+                                            ':DescDepartamento' => $descripcion,
+                                            ':FechaCreacionDepartamento' => $fecha,
+                                            ':VolumenDeNegocio' => $volumen,
+                                            ':FechaBajaDepartamento' => $fechaBaja
+                                        ]);
+
                                         $registrosImportados++;
                                     }
 
@@ -162,12 +168,10 @@
                                     echo "<h3>Importación completada con éxito.</h3>";
                                     echo "<p>Se han importado <b>{$registrosImportados}</b> departamentos desde el archivo JSON a la base de datos.</p>";
                                     echo "</div>";
-
                                 } catch (PDOException $miExceptionPDO) {
                                     // Si ocurre un error, deshacemos todos los cambios
                                     $miDB->rollBack();
 
-                                    
                                     echo "<div class='error'>";
                                     echo "<h3 style='margin-top:0;'>Error al importar en la base de datos.</h3>";
                                     echo "<p>La transaccion ha sido cancelada. Ningun registro ha sido importado.</p>";
