@@ -108,7 +108,7 @@
                     if (isset($_REQUEST['exportar'])) {
 
                         // Archivo con las variables de conexion a la base de datos
-                        require_once '../config/configDBPDOCasa.php';
+                        require_once '../config/configDBPDO.php';
 
                         try {
                             // Instanciacion del objeto PDO para conectar a MariaDB
