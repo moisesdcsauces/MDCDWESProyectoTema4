@@ -9,6 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@400;500;600;700;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../webroot/css/styles.css">
   <link rel="stylesheet" href="webroot/css/estilos.css">
+  <style>
+    .contenedor-botones {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contenedor-botones .btn {
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+  </style>
 </head>
 <body class="pagina-ajustada">
   <!-- Bloque: Cabecera -->
@@ -16,7 +35,6 @@
     <div class="cabecera__contenedor">
       <img class="monograma" src="../webroot/images/cruz.png" alt="">
       <h1 class="titulo-header">TEMA 4: Técnicas de acceso a datos en PHP</h1>
-      <!-- <img class="cabecera__banner" src="../webroot/images/titulo-pagina.png" alt="Moisés Alberto Domínguez Cruz"> -->
       <img class="monograma" src="../webroot/images/cruz.png" alt="">
     </div>
   </header>
@@ -36,42 +54,31 @@
             <tbody>
                 <tr>
                     <td>CreaBDMDCProyectoTema4</td>
-                    <td>
-                        <a href="mostrarcodigo/muestraScriptCrea.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td><a href="mostrarcodigo/muestraScriptCrea.php" class="btn btn-codigo">Código</a></td>
                 </tr>
                 <tr>
                     <td>CargaInicialBDMDCProyectoTema4</td>
-                    <td>
-                        <a href="mostrarcodigo/muestraScriptCarga.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td><a href="mostrarcodigo/muestraScriptCarga.php" class="btn btn-codigo">Código</a></td>
                 </tr>
                 <tr>
                     <td>BorraBDMDCProyectoTema4</td>
-                    <td>
-                        <a href="mostrarcodigo/muestraScriptBorrar.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td><a href="mostrarcodigo/muestraScriptBorrar.php" class="btn btn-codigo">Código</a></td>
                 </tr>
                 <tr>
                     <td>configDBPDO</td>
-                    <td>
-                        <a href="mostrarcodigo/muestraConfigDBPDO.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td><a href="mostrarcodigo/muestraConfigDBPDO.php" class="btn btn-codigo">Código</a></td>
                 </tr>
                 <tr>
                     <td>configDBMYSQLi</td>
-                    <td>
-                        <a href="mostrarcodigo/muestraConfigDBMYSQLi.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td><a href="mostrarcodigo/muestraConfigDBMYSQLi.php" class="btn btn-codigo">Código</a></td>
                 </tr>
                 <tr>
                     <td>libreriaValidacion</td>
-                    <td>
-                        <a href="mostrarcodigo/muestraLibreriaValidacion.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td><a href="mostrarcodigo/muestraLibreriaValidacion.php" class="btn btn-codigo">Código</a></td>
                 </tr>
             </tbody>
         </table>
+
         <table>
             <thead>
                 <tr>
@@ -84,138 +91,94 @@
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td> Conexión a la base de datos con la cuenta usuario y tratamiento de errores</td>
-                    <td>
-                        <a href="codigoPHP/ejercicio01PDO.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio01PDO.php" class="btn btn-codigo">Código</a>
-                    </td>
-                    <td>
-                        <a href="codigoPHP/ejercicio01MYSQli.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio01MYSQli.php" class="btn btn-codigo">Código</a>
-                    </td>
+                    <td>Conexión a la base de datos con la cuenta usuario y tratamiento de errores</td>
+                    <td><a href="codigoPHP/ejercicio01PDO.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio01PDO.php" class="btn btn-codigo">Código</a></td>
+                    <td><a href="codigoPHP/ejercicio01MYSQli.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio01MYSQli.php" class="btn btn-codigo">Código</a></td>
                 </tr>
                 
                 <tr>
                     <td>2</td>
                     <td>Mostrar el contenido de la tabla Departamento y el número de registros</td>
-                    <td>
-                        <a href="codigoPHP/ejercicio02PDO.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio02PDO.php" class="btn btn-codigo">Código</a>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td><a href="codigoPHP/ejercicio02PDO.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio02PDO.php" class="btn btn-codigo">Código</a></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 
                 <tr>
                     <td>3</td>
                     <td>Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores</td>
-                    <td>
-                        <a href="codigoPHP/ejercicio03PDO.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio03PDO.php" class="btn btn-codigo">Código</a>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td><a href="codigoPHP/ejercicio03PDO.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio03PDO.php" class="btn btn-codigo">Código</a></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 
                 <tr>
                     <td>4</td>
                     <td>Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos)</td>
-                    <td>
-                        <a href="codigoPHP/ejercicio04PDO.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio04PDO.php" class="btn btn-codigo">Código</a>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td><a href="codigoPHP/ejercicio04PDO.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio04PDO.php" class="btn btn-codigo">Código</a></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 
                 <tr>
                     <td>5</td>
                     <td>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno</td>
-                    <td>
-                        <a href="codigoPHP/ejercicio05PDO.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio05PDO.php" class="btn btn-codigo">Código</a>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td><a href="codigoPHP/ejercicio05PDO.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio05PDO.php" class="btn btn-codigo">Código</a></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 
                 <tr>
                     <td>6</td>
-                    <td>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno</td>
-                    <td>
-                        <a href="codigoPHP/ejercicio06PDO.php" class="btn btn-ejecutar">Ejecutar</a>
-                    </td>
-                    <td>
-                        <a href="mostrarcodigo/muestraEjercicio06PDO.php" class="btn btn-codigo">Código</a>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno (con Arrays)</td>
+                    <td><a href="codigoPHP/ejercicio06PDO.php" class="btn btn-ejecutar">Ejecutar</a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio06PDO.php" class="btn btn-codigo">Código</a></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 
                 <tr>
                     <td>7</td>
-                    <td>Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de nuestra base de datos. (IMPORTAR). El fichero importado se encuentra en el directorio .../tmp/ del servidor</td>
+                    <td>Página web que toma datos de un fichero xml/json y los añade a la tabla Departamento de nuestra base de datos. (IMPORTAR). El fichero importado se encuentra en el directorio .../tmp/ del servidor</td>
                     <td>
-                        <a href="codigoPHP/ejercicio07PDO.php" class="btn btn-ejecutar">Ejecutar</a>
+                        <div class="contenedor-botones">
+                            <a href="codigoPHP/ejercicio07PDO.php" class="btn btn-ejecutar">Ejecutar XML</a>
+                            <a href="codigoPHP/ejercicio07_01PDO.php" class="btn btn-ejecutar">Ejecutar JSON</a>
+                        </div>
                     </td>
                     <td>
-                        <a href="mostrarcodigo/muestraEjercicio07PDO.php" class="btn btn-codigo">Código</a>
+                        <div class="contenedor-botones">
+                            <a href="mostrarcodigo/muestraEjercicio07PDO.php" class="btn btn-codigo">Código XML</a>
+                            <a href="mostrarcodigo/muestraEjercicio07_01PDO.php" class="btn btn-codigo">Código JSON</a>
+                        </div>
                     </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 
                 <tr>
                     <td>8</td>
-                    <td>Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR). El fichero exportado se encuentra en el directorio .../tmp/ del servidor</td>
+                    <td>Página web que toma datos de la tabla Departamento y guarda en un fichero xml/json. (COPIA DE SEGURIDAD / EXPORTAR). El fichero exportado se encuentra en el directorio .../tmp/ del servidor</td>
                     <td>
-                        <a href="codigoPHP/ejercicio08PDO.php" class="btn btn-ejecutar">Ejecutar</a>
+                        <div class="contenedor-botones">
+                            <a href="codigoPHP/ejercicio08PDO.php" class="btn btn-ejecutar">Ejecutar XML</a>
+                            <a href="codigoPHP/ejercicio08_01PDO.php" class="btn btn-ejecutar">Ejecutar JSON</a>
+                        </div>
                     </td>
                     <td>
-                        <a href="mostrarcodigo/muestraEjercicio08PDO.php" class="btn btn-codigo">Código</a>
+                        <div class="contenedor-botones">
+                            <a href="mostrarcodigo/muestraEjercicio08PDO.php" class="btn btn-codigo">Código XML</a>
+                            <a href="mostrarcodigo/muestraEjercicio08_01PDO.php" class="btn btn-codigo">Código JSON</a>
+                        </div>
                     </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
