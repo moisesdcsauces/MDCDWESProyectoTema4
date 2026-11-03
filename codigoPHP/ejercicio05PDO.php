@@ -239,7 +239,7 @@
                     // Revierte o deshace los cambios
                     $miDB->rollBack();
 
-                    echo '<p>Transaccion completada.</p>';
+                    echo '<p>Transaccion cancelada.</p>';
 
                     // Captura el codigo de error y lo imprime en un mensaje.
                     echo "Código del error: " . $miExcepcionPDO->getCode() . "<br/>";

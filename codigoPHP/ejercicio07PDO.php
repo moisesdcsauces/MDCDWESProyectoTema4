@@ -114,7 +114,7 @@
                         // Comprobamos si el archivo existe antes de intentar hacer nada
                         if (file_exists($rutaFicheroXML)) {
                             
-                            require_once '../config/configDBPDOCasa.php';
+                            require_once '../config/configDBPDO.php';
 
                             try {
                                 // Instanciacion del objeto PDO

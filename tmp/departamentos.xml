@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <departamentos>
   <departamento>
+    <codigo>AAA</codigo>
+    <descripcion>Departamento prueba 2</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>abc</codigo>
+    <descripcion>abecedario</descripcion>
+  </departamento>
+  <departamento>
     <codigo>ADM</codigo>
     <descripcion>Administración</descripcion>
   </departamento>
@@ -9,16 +17,40 @@
     <descripcion>Comercial</descripcion>
   </departamento>
   <departamento>
-    <codigo>CON</codigo>
-    <descripcion>Contabilidad</descripcion>
+    <codigo>DAW</codigo>
+    <descripcion>holis</descripcion>
   </departamento>
   <departamento>
     <codigo>FIN</codigo>
     <descripcion>Finanzas</descripcion>
   </departamento>
   <departamento>
-    <codigo>INV</codigo>
-    <descripcion>Investigación</descripcion>
+    <codigo>GEG</codigo>
+    <descripcion>geronimo</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>H</codigo>
+    <descripcion>holis</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>hol</codigo>
+    <descripcion>holis</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>JIG</codigo>
+    <descripcion>hola moises</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>KMS</codigo>
+    <descripcion>Departamento prueba 1</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>LES</codigo>
+    <descripcion>cantamañanas</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>ÑAW</codigo>
+    <descripcion>descripcion</descripcion>
   </departamento>
   <departamento>
     <codigo>NFS</codigo>
@@ -26,11 +58,19 @@
   </departamento>
   <departamento>
     <codigo>NIG</codigo>
-    <descripcion>NIGGA</descripcion>
+    <descripcion>nih</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>p</codigo>
+    <descripcion>descripcion</descripcion>
   </departamento>
   <departamento>
     <codigo>PRA</codigo>
     <descripcion>Departamento PR Acho</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>RGF</codigo>
+    <descripcion>PRUEBA</descripcion>
   </departamento>
   <departamento>
     <codigo>TEC</codigo>
@@ -43,5 +83,9 @@
   <departamento>
     <codigo>VEN</codigo>
     <descripcion>Ventas</descripcion>
+  </departamento>
+  <departamento>
+    <codigo>WWE</codigo>
+    <descripcion>Departamento de wrestling</descripcion>
   </departamento>
 </departamentos>

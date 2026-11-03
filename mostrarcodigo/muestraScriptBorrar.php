@@ -12,4 +12,3 @@ if ($archivo && file_exists($archivo)) {
     echo "<a href='../indexProyectoTema4.php'>⬅ Volver al inicio</a>";
 }
 ?>
-
