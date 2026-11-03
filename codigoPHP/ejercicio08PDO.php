@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ejercicio 07 - Exportar Departamentos a XML</title>
+        <title>Ejercicio 08 - Exportar Departamentos a XML</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@400;500;600;700;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
@@ -90,7 +90,7 @@
                 <div class="container">
                     <!--
                     -- Moisés Alberto Dominguez Cruz
-                    -- 28/10/2026
+                    -- 02/10/2026
                     -- Ejercicio 08 (Tema 4) - Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR).
                     -->
                     <a href='../indexProyectoTema4.php' class='enlace-volver'>⬅ Volver al inicio</a>
@@ -115,7 +115,7 @@
                             $miDB = new PDO(HOST, USER, PASS);
 
                             // Consulta SQL para obtener código y descripción de todos los departamentos
-                            $sql = 'SELECT T02_CodDepartamento, T02_DescDepartamento FROM T02_Departamento';
+                            $sql = 'SELECT T02_CodDepartamento, T02_DescDepartamento,T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento FROM T02_Departamento';
                             $consultaPreparada = $miDB->prepare($sql);
                             $consultaPreparada->execute();
 
@@ -142,7 +142,7 @@
                                     $sDepartamento = $documentoXML->createElement('departamento');
 
                                     // Creamos el codigo, añadimos el texto y lo colgamos de departamento
-                                    $sCodigo = $documentoXML->createElement('codigo');
+                                    $sCodigo = $documentoXML->createElement('CodDepartamento');
                                     
                                     // Crea un nuevo texto: https://www.php.net/manual/es/domdocument.createtextnode.php
                                     $sCodigo->appendChild($documentoXML->createTextNode($oDepartamento->T02_CodDepartamento));
@@ -151,34 +151,39 @@
                                     $sDepartamento->appendChild($sCodigo);
 
                                     // Creamos la descripcion, añadimos el texto y lo colgamos de departamento
-                                    $sDescripcion = $documentoXML->createElement('descripcion');
+                                    $sDescripcion = $documentoXML->createElement('DescDepartamento');
                                     $sDescripcion->appendChild($documentoXML->createTextNode($oDepartamento->T02_DescDepartamento));
                                     $sDepartamento->appendChild($sDescripcion);
+                                    
+                                    // Creamos la fecha, añadimos el texto y lo colgamos de departamento
+                                    $sFecha = $documentoXML->createElement('FechaCreacionDepartamento');
+                                    $sFecha->appendChild($documentoXML->createTextNode($oDepartamento->T02_FechaCreacionDepartamento));
+                                    $sDepartamento->appendChild($sFecha);
+                                    
+                                    // Creamos el volumen, añadimos el texto y lo colgamos de departamento
+                                    $sVolumen = $documentoXML->createElement('VolumenDeNegocio');
+                                    $sVolumen->appendChild($documentoXML->createTextNode($oDepartamento->T02_VolumenDeNegocio));
+                                    $sDepartamento->appendChild($sVolumen);
+                                    
+                                    // Creamos la fecha de baja, añadimos el texto y lo colgamos de departamento
+                                    $sFechaBaja = $documentoXML->createElement('FechaBajaDepartamento');
+                                    $sFechaBaja->appendChild($documentoXML->createTextNode($oDepartamento->T02_FechaBajaDepartamento));
+                                    $sDepartamento->appendChild($sFechaBaja);
 
                                     // Colgamos el departamento completo de la raiz departamentos
                                     $raiz->appendChild($sDepartamento);
                                 }
-
-                                // Preparamos el directorio /tmp/
-                                $directorioTMP = dirname(__DIR__) . '/tmp/';
-
-                                // Ruta completa absoluta para que el servidor guarde el archivo
-                                $rutaFicheroGuardar = $directorioTMP . 'departamentos.xml';
-
+                                
                                 // Guardamos el archivo XML generado en el servidor
                                 // Guarda el documento XML en un fichero: https://www.php.net/manual/es/domdocument.save.php
-                                $documentoXML->save($rutaFicheroGuardar);
-
-                                // Ruta relativa que el navegador necesita para encontrar el archivo desde 'codigoPHP'
-                                $rutaEnlaceWeb = '../tmp/departamentos.xml';
+                                $documentoXML->save($_SERVER["DOCUMENT_ROOT"] . '/MDCDWESProyectoTema4/tmp/departamentos.xml');
 
                                 // Mostramos el mensaje y el enlace web
                                 echo "<div class='mensaje-exito'>";
                                 echo "<h3>Exportacion completada con exito.</h3>";
-                                echo "<p>El archivo se ha guardado en: <b>{$rutaFicheroGuardar}</b></p>";
-                                echo "<a href='{$rutaEnlaceWeb}' target='_blank' style='color: #155724; font-weight: bold; text-decoration: underline;'>Ver archivo XML</a>";
-                                echo "</div>";
-                                
+                                echo "<p>El archivo se ha guardado en: <b>".$_SERVER['DOCUMENT_ROOT'] ."/MDCDWESProyectoTema4/tmp/departamentos.xml</b></p>";
+                                echo "<a href='../tmp/departamentos.xml' target='_blank' style='color: #155724; font-weight: bold; text-decoration: underline;'>Ver archivo XML</a>";
+                                echo "</div>";                              
                             }
                         } catch (PDOException $miExceptionPDO) {
                             // Captura errores de PDO

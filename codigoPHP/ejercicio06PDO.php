@@ -168,36 +168,32 @@
                     // Array con los nuevos departamentos a cargar
                     $aDepartamentos = [
                         [
-                            "codDepartamento" => "NFS",
-                            "descripcionDepartamento" => "Departamento Need for Speed",
-                            "volumenDepartamento" => 15000.50
+                            ":codDepartamento" => "NFS",
+                            ":descripcionDepartamento" => "Departamento Need for Speed",
+                            ":volumenDepartamento" => 15000.50
                         ],
                         [
-                            "codDepartamento" => "PRA",
-                            "descripcionDepartamento" => "Departamento PR Acho",
-                            "volumenDepartamento" => 12345.00
+                            ":codDepartamento" => "PRA",
+                            ":descripcionDepartamento" => "Departamento PR Acho",
+                            ":volumenDepartamento" => 12345.00
                         ],
                         [
-                            "codDepartamento" => "TST",
-                            "descripcionDepartamento" => "Departamento de testeo",
-                            "volumenDepartamento" => 98765.43
+                            ":codDepartamento" => "TST",
+                            ":descripcionDepartamento" => "Departamento de testeo",
+                            ":volumenDepartamento" => 98765.43
                         ]
                     ];
 
                     $miDB->beginTransaction(); // Deshabilito el modo autocommit
 
                     // Preparacion de la sentencia SQL utilizando signos de interrogacion
-                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (?, ?, NOW(), ?, NULL)';
+                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:codDepartamento, :descripcionDepartamento, NOW(), :volumenDepartamento, NULL)';
                     $sentenciaPreparada = $miDB->prepare($sqlInsert);
 
                     // Recorrido con un foreach ejecutando la sentencia preparada pasando los parámetros en un array
                     foreach ($aDepartamentos as $departamento) {
-                        $sentenciaPreparada->execute([
-                            $departamento["codDepartamento"],
-                            $departamento["descripcionDepartamento"],
-                            $departamento["volumenDepartamento"]
-                        ]);
-                        echo '<p>Insertado departamento con código: <b>' . $departamento["codDepartamento"] . '</b></p>';
+                        $sentenciaPreparada->execute($departamento);
+                        echo '<p>Insertado departamento con código: <b>' . $departamento[":codDepartamento"] . '</b></p>';
                     }
 
                     $miDB->commit(); // Confirma los cambios y los consolida

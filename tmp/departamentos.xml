@@ -1,91 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <departamentos>
   <departamento>
-    <codigo>AAA</codigo>
-    <descripcion>Departamento prueba 2</descripcion>
+    <CodDepartamento>ADM</CodDepartamento>
+    <DescDepartamento>Administración</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>125000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>abc</codigo>
-    <descripcion>abecedario</descripcion>
+    <CodDepartamento>COM</CodDepartamento>
+    <DescDepartamento>Comercial</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>240000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>ADM</codigo>
-    <descripcion>Administración</descripcion>
+    <CodDepartamento>FIN</CodDepartamento>
+    <DescDepartamento>Finanzas</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>180000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>COM</codigo>
-    <descripcion>Comercial</descripcion>
+    <CodDepartamento>NFS</CodDepartamento>
+    <DescDepartamento>Departamento Need for Speed</DescDepartamento>
+    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
+    <VolumenDeNegocio>15000.5</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>DAW</codigo>
-    <descripcion>holis</descripcion>
+    <CodDepartamento>PRA</CodDepartamento>
+    <DescDepartamento>Departamento PR Acho</DescDepartamento>
+    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
+    <VolumenDeNegocio>12345</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>FIN</codigo>
-    <descripcion>Finanzas</descripcion>
+    <CodDepartamento>TEC</CodDepartamento>
+    <DescDepartamento>Tecnología</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>310000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>GEG</codigo>
-    <descripcion>geronimo</descripcion>
+    <CodDepartamento>TST</CodDepartamento>
+    <DescDepartamento>Departamento de testeo</DescDepartamento>
+    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
+    <VolumenDeNegocio>98765.4</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <codigo>H</codigo>
-    <descripcion>holis</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>hol</codigo>
-    <descripcion>holis</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>JIG</codigo>
-    <descripcion>hola moises</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>KMS</codigo>
-    <descripcion>Departamento prueba 1</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>LES</codigo>
-    <descripcion>cantamañanas</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>ÑAW</codigo>
-    <descripcion>descripcion</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>NFS</codigo>
-    <descripcion>Departamento Need for Speed</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>NIG</codigo>
-    <descripcion>nih</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>p</codigo>
-    <descripcion>descripcion</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>PRA</codigo>
-    <descripcion>Departamento PR Acho</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>RGF</codigo>
-    <descripcion>PRUEBA</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>TEC</codigo>
-    <descripcion>Tecnología</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>TST</codigo>
-    <descripcion>Departamento de testeo</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>VEN</codigo>
-    <descripcion>Ventas</descripcion>
-  </departamento>
-  <departamento>
-    <codigo>WWE</codigo>
-    <descripcion>Departamento de wrestling</descripcion>
+    <CodDepartamento>VEN</CodDepartamento>
+    <DescDepartamento>Ventas</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>275000</VolumenDeNegocio>
+    <FechaBajaDepartamento>2026-01-15 13:34:00</FechaBajaDepartamento>
   </departamento>
 </departamentos>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ejercicio 08 - Importar Departamentos desde XML</title>
+        <title>Ejercicio 07 - Importar Departamentos desde XML</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@400;500;600;700;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
@@ -137,7 +137,7 @@
                                     $miDB->beginTransaction();
 
                                     // Preparamos la consulta de insercion
-                                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (?, ?, NOW(), NULL, NULL)';
+                                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (?, ?, ?, ?, ?)';
                                     $sentenciaPreparada = $miDB->prepare($sqlInsert);
 
                                     $registrosImportados = 0;
@@ -147,11 +147,17 @@
                                         
                                         // Extraemos los valores leyendo los hijos (<codigo> y <descripcion>)
                                         // Uso de getElementsByTagName: https://www.php.net/manual/es/domdocument.getelementsbytagname.php
-                                        $codigo = $departamento->getElementsByTagName('codigo')->item(0)->nodeValue;
-                                        $descripcion = $departamento->getElementsByTagName('descripcion')->item(0)->nodeValue;
+                                        $codigo = $departamento->getElementsByTagName('CodDepartamento')->item(0)->nodeValue;
+                                        $descripcion = $departamento->getElementsByTagName('DescDepartamento')->item(0)->nodeValue;
+                                        $fecha = $departamento->getElementsByTagName('FechaCreacionDepartamento')->item(0)->nodeValue;
+                                        $volumen = $departamento->getElementsByTagName('VolumenDeNegocio')->item(0)->nodeValue;
+                                        $nullFechaBaja = $departamento->getElementsByTagName('FechaBajaDepartamento')->item(0);
+                                        
+                                        // Operacion ternaria para verificar si existe una fecha de baja vacia en el xml y lo intercambie por null
+                                        $fechaBaja = ($nullFechaBaja && trim($nullFechaBaja->nodeValue) !== '') ? $nullFechaBaja->nodeValue : null;                                      
 
                                         // Ejecutamos la consulta preparada con los datos extraidos
-                                        $sentenciaPreparada->execute([$codigo, $descripcion]);
+                                        $sentenciaPreparada->execute([$codigo, $descripcion, $fecha, $volumen, $fechaBaja]);
                                         
                                         $registrosImportados++;
                                     }
