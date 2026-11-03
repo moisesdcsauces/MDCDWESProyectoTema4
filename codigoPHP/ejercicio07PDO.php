@@ -137,7 +137,7 @@
                                     $miDB->beginTransaction();
 
                                     // Preparamos la consulta de insercion
-                                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (?, ?, ?, ?, ?)';
+                                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:CodDepartamento, :DescDepartamento, :FechaCreacionDepartamento, :VolumenDeNegocio, :FechaBajaDepartamento)';
                                     $sentenciaPreparada = $miDB->prepare($sqlInsert);
 
                                     $registrosImportados = 0;
