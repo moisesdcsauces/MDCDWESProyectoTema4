@@ -118,7 +118,6 @@
                             try {
                                 // Instanciacion del objeto PDO
                                 $miDB = new PDO(HOST, USER, PASS);
-                                $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                                 // Instanciamos DOMDocument y cargamos el archivo XML
                                 $documentoXML = new DOMDocument();
