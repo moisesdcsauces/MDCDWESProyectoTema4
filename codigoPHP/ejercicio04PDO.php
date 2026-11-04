@@ -224,7 +224,6 @@
                     try {
                         // Instanciacion del objeto PDO para conectar a MariaDB usando las constantes del archivo de configuracion
                         $miDB = new PDO(HOST, USER, PASS);
-                        $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                         // Construccion de la sentencia SQL concatenando                
                         $listaDepartamentos = $miDB->query("select * from T02_Departamento where T02_DescDepartamento like '%" . $aRespuesta['departamentoBus'] . "%'");

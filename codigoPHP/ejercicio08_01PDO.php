@@ -135,7 +135,7 @@
                                         'FechaBajaDepartamento' => $oDepartamento->T02_FechaBajaDepartamento
                                     ];
                                 }
-
+                                
                                 // Convertimos el array a formato texto JSON
                                 // https://www.php.net/manual/es/function.json-encode.php
                                 $textoJSON = json_encode($aDepartamentos, JSON_PRETTY_PRINT);
