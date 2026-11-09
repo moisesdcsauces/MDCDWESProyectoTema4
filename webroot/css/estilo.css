@@ -1,0 +1,45 @@
+/* ============================================
+   PROYECTO TEMA 3 — DWES
+   (el body/container original no puede redefinir el
+   selector suelto "body": esta pagina ahora comparte esa
+   etiqueta con la cabecera y el pie del sitio, cargados
+   desde ../webroot/css/styles.css antes que esta hoja;
+   su fuente y color se movieron a .container, que es
+   donde realmente se veian. table/th/td/.btn no chocan
+   con nada del sitio y se dejan tal cual estaban)
+   ============================================ */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #474a8a; /* Color oficial de PHP */
+    color: white;
+}
+.btn {
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-ejecutar { background-color: #28a745; }
+.btn-codigo { background-color: #17a2b8; }
+.btn:hover { opacity: 0.8; }

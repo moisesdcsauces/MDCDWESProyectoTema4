@@ -1,0 +1,79 @@
+[
+    {
+        "CodDepartamento": "ADM",
+        "DescDepartamento": "Administraci\u00f3n",
+        "FechaCreacionDepartamento": "2024-01-15 09:00:00",
+        "VolumenDeNegocio": 125000,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "COM",
+        "DescDepartamento": "Comercial",
+        "FechaCreacionDepartamento": "2024-01-15 09:00:00",
+        "VolumenDeNegocio": 240000,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "CON",
+        "DescDepartamento": "Contabilidad",
+        "FechaCreacionDepartamento": "2026-10-22 00:00:00",
+        "VolumenDeNegocio": 15000.5,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "FIN",
+        "DescDepartamento": "Finanzas",
+        "FechaCreacionDepartamento": "2024-01-15 09:00:00",
+        "VolumenDeNegocio": 180000,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "INV",
+        "DescDepartamento": "Investigaci\u00f3n",
+        "FechaCreacionDepartamento": "2026-10-22 00:00:00",
+        "VolumenDeNegocio": 100000,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "NFS",
+        "DescDepartamento": "Departamento Need for Speed",
+        "FechaCreacionDepartamento": "2026-11-02 11:02:19",
+        "VolumenDeNegocio": 15000.5,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "NIG",
+        "DescDepartamento": "NIGGA",
+        "FechaCreacionDepartamento": "2026-10-27 00:00:00",
+        "VolumenDeNegocio": 100000,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "PRA",
+        "DescDepartamento": "Departamento PR Acho",
+        "FechaCreacionDepartamento": "2026-11-02 11:02:19",
+        "VolumenDeNegocio": 12345,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "TEC",
+        "DescDepartamento": "Tecnolog\u00eda",
+        "FechaCreacionDepartamento": "2024-01-15 09:00:00",
+        "VolumenDeNegocio": 310000,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "TST",
+        "DescDepartamento": "Departamento de testeo",
+        "FechaCreacionDepartamento": "2026-11-02 11:02:19",
+        "VolumenDeNegocio": 98765.4,
+        "FechaBajaDepartamento": null
+    },
+    {
+        "CodDepartamento": "VEN",
+        "DescDepartamento": "Ventas",
+        "FechaCreacionDepartamento": "2024-01-15 09:00:00",
+        "VolumenDeNegocio": 275000,
+        "FechaBajaDepartamento": "2026-01-15 13:34:00"
+    }
+]

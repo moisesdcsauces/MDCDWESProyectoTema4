@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<departamentos>
+  <departamento>
+    <CodDepartamento>ADM</CodDepartamento>
+    <DescDepartamento>Administración</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>125000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>COM</CodDepartamento>
+    <DescDepartamento>Comercial</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>240000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>FIN</CodDepartamento>
+    <DescDepartamento>Finanzas</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>180000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>NFS</CodDepartamento>
+    <DescDepartamento>Departamento Need for Speed</DescDepartamento>
+    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
+    <VolumenDeNegocio>15000.5</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>PRA</CodDepartamento>
+    <DescDepartamento>Departamento PR Acho</DescDepartamento>
+    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
+    <VolumenDeNegocio>12345</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>TEC</CodDepartamento>
+    <DescDepartamento>Tecnología</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>310000</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>TST</CodDepartamento>
+    <DescDepartamento>Departamento de testeo</DescDepartamento>
+    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
+    <VolumenDeNegocio>98765.4</VolumenDeNegocio>
+    <FechaBajaDepartamento></FechaBajaDepartamento>
+  </departamento>
+  <departamento>
+    <CodDepartamento>VEN</CodDepartamento>
+    <DescDepartamento>Ventas</DescDepartamento>
+    <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
+    <VolumenDeNegocio>275000</VolumenDeNegocio>
+    <FechaBajaDepartamento>2026-01-15 13:34:00</FechaBajaDepartamento>
+  </departamento>
+</departamentos>
