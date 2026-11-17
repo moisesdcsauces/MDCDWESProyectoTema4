@@ -160,38 +160,25 @@
                 // Archivo con las variables de conexion a la base de datos
                 require_once '../config/configDBPDO.php';
 
-                require_once '../core/231018libreriaValidacion.php';
-
                 try {
                     // Instanciamiento del objeto PDO para establecer la conexion con mariadb
                     $miDB = new PDO(HOST, USER, PASS);
 
-                    // Array con las tres inserciones
-                    $aDepartamentos = [
-                        [
-                            "codDepartamento" => "KMS",
-                            "descripcionDepartamento" => "Departamento prueba 1",
-                            "volumenDepartamento" => 10000
-                        ],
-                        [
-                            "codDepartamento" => "AAA",
-                            "descripcionDepartamento" => "Departamento prueba 2",
-                            "volumenDepartamento" => 7658.4
-                        ],
-                        [
-                            "codDepartamento" => "WWE",
-                            "descripcionDepartamento" => "Departamento de wrestling",
-                            "volumenDepartamento" => 70546.90
-                        ]
-                    ];
-
                     $miDB->beginTransaction(); // Deshabilito el modo autocommit
-                    // Recorrido con un foreach insertando la sentencia sql.
-                    foreach ($aDepartamentos as $departamento) {
-                        $sqlInsert = 'INSERT into T02_Departamento VALUES ("' . $departamento["codDepartamento"] . '","' . $departamento["descripcionDepartamento"] . '", now(),"' . $departamento["volumenDepartamento"] . '",null)';
-                        echo '<p>' . $sqlInsert . '</p>';
-                        $miDB->exec($sqlInsert);
-                    }
+
+                    // Tres instrucciones INSERT, una detras de otra. Si cualquiera falla se salta al catch
+                    // y el rollBack deshace las anteriores, asi se añaden las tres o ninguna
+                    $miDB->exec("INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento)
+                                 VALUES ('KMS', 'Departamento prueba 1', NOW(), 10000, NULL)");
+                    echo '<p>Insertado departamento con código: <b>KMS</b></p>';
+
+                    $miDB->exec("INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento)
+                                 VALUES ('AAA', 'Departamento prueba 2', NOW(), 7658.4, NULL)");
+                    echo '<p>Insertado departamento con código: <b>AAA</b></p>';
+
+                    $miDB->exec("INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento)
+                                 VALUES ('WWE', 'Departamento de wrestling', NOW(), 70546.90, NULL)");
+                    echo '<p>Insertado departamento con código: <b>WWE</b></p>';
 
                     $miDB->commit(); // Confirma los cambios y los consolida
 
@@ -221,7 +208,12 @@
                         echo '<td class="texto-centro">' . $fechaCreacionDepartamento->format('d/m/Y') . '</td>';
 
                         // Formateo del numero a moneda española
-                        echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                        // Si el volumen es nulo se muestra un guion, igual que la fecha de baja
+                        if (is_null($oDepartamento->T02_VolumenDeNegocio)) {
+                            echo '<td class="texto-derecha">-</td>';
+                        } else {
+                            echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                        }
 
                         // Comprobacion en la fecha de baja
                         if (is_null($oDepartamento->T02_FechaBajaDepartamento)) {
@@ -237,9 +229,12 @@
                     echo '</table>';
                 } catch (PDOException $miExcepcionPDO) { // Lanza la Exception PDOException cuando ocurre un error.
                     // Revierte o deshace los cambios
-                    $miDB->rollBack();
-
-                    echo '<p>Transaccion cancelada.</p>';
+                    // Solo se deshace si hay una transaccion abierta: si fallo la conexion $miDB no existe
+                    // y si el fallo fue despues del commit ya no queda nada que deshacer
+                    if (isset($miDB) && $miDB->inTransaction()) {
+                        $miDB->rollBack();
+                        echo '<p>Transaccion cancelada.</p>';
+                    }
 
                     // Captura el codigo de error y lo imprime en un mensaje.
                     echo "Código del error: " . $miExcepcionPDO->getCode() . "<br/>";
