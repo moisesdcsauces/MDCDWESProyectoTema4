@@ -124,7 +124,12 @@
                 echo '<td class="texto-centro">' . $oFechaCreacionDepartamento->format('d/m/Y') . '</td>';
                 
                 // Formatea el float con 2 decimales, coma decimal y punto de miles añadiendo el simbolo €
-                echo '<td class="texto-derecha">' . number_format($registro->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                // Si el volumen es nulo se muestra un guion, igual que la fecha de baja
+                if (is_null($registro->T02_VolumenDeNegocio)) {
+                    echo '<td class="texto-derecha">-</td>';
+                } else {
+                    echo '<td class="texto-derecha">' . number_format($registro->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                }
                 
                 // si el campo FechaBajaDepartamento es nulo en la base de datos
                 if (is_null($registro->T02_FechaBajaDepartamento)) {
