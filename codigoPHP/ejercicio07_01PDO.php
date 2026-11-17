@@ -130,7 +130,7 @@
                                     // Instanciacion del objeto PDO
                                     $miDB = new PDO(HOST, USER, PASS);
 
-                                    // 1. Validamos antes de insertar: ningun codigo puede existir ya en la tabla
+                                    // Validamos antes de insertar: ningun codigo puede existir ya en la tabla
                                     //    ni estar repetido dentro del propio archivo (es la clave primaria)
                                     $consultaCodigo = $miDB->prepare('SELECT T02_CodDepartamento FROM T02_Departamento WHERE T02_CodDepartamento = :codigo');
                                     $aCodigosRepetidos = [];
@@ -145,7 +145,7 @@
                                         $aCodigosLeidos[] = $codigo;
                                     }
 
-                                    // 2. Solo si no hay ningun codigo repetido se hace la transaccion con los INSERT
+                                    // Solo si no hay ningun codigo repetido se hace la transaccion con los INSERT
                                     if (empty($aCodigosRepetidos)) {
                                         // Iniciamos la transaccion para asegurar que o se importan todos, o ninguno
                                         $miDB->beginTransaction();
@@ -194,7 +194,6 @@
                                 } catch (PDOException $miExceptionPDO) {
                                     // Si ocurre un error, deshacemos todos los cambios
                                     // Solo se deshace si hay una transaccion abierta: si fallo la conexion $miDB no existe
-                                    // y si el fallo fue despues del commit ya no queda nada que deshacer
                                     if (isset($miDB) && $miDB->inTransaction()) {
                                         $miDB->rollBack();
                                     }
