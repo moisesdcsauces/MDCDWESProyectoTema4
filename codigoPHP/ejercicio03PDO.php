@@ -298,7 +298,12 @@
                                 echo "<td class='texto-centro'>" . $oFechaAlta->format('d/m/Y') . "</td>";
 
                                 // Formateo del numero a moneda española
-                                echo "<td class='texto-derecha'>" . number_format($registro->T02_VolumenDeNegocio, 2, ',', '.') . " €</td>";
+                                // Si el volumen es nulo se muestra un guion, igual que la fecha de baja
+                                if (is_null($registro->T02_VolumenDeNegocio)) {
+                                    echo "<td class='texto-derecha'>-</td>";
+                                } else {
+                                    echo "<td class='texto-derecha'>" . number_format($registro->T02_VolumenDeNegocio, 2, ',', '.') . " €</td>";
+                                }
 
                                 // Comprobacion en la fecha de baja
                                 if (is_null($registro->T02_FechaBajaDepartamento)) {
