@@ -150,6 +150,13 @@
                 margin-bottom: 15px;
                 max-width: 900px;
             }
+
+            .sin-resultados {
+                text-align: center;
+                color: #555;
+                font-style: italic;
+                margin-top: 20px;
+            }
         </style>
     </head>
     <body class="pagina-ajustada">
@@ -225,8 +232,15 @@
                         // Instanciacion del objeto PDO para conectar a MariaDB usando las constantes del archivo de configuracion
                         $miDB = new PDO(HOST, USER, PASS);
 
-                        // Construccion de la sentencia SQL concatenando                
-                        $listaDepartamentos = $miDB->query("select * from T02_Departamento where T02_DescDepartamento like '%" . $aRespuesta['departamentoBus'] . "%'");
+                        // Consulta preparada: el texto buscado va como parametro, no metido en la cadena SQL
+                        $listaDepartamentos = $miDB->prepare(
+                                "SELECT * FROM T02_Departamento
+                             WHERE T02_DescDepartamento LIKE :descripcion"
+                        );
+
+                        // Los % se añaden al valor del parametro para buscar el texto en cualquier parte de la descripcion.
+                        // Si el campo va vacio queda '%%' y aparecen todos los departamentos
+                        $listaDepartamentos->execute([':descripcion' => '%' . $aRespuesta['departamentoBus'] . '%']);
                         
                         // Comprobamos que existan registros para esa búsqueda antes de pintar la tabla
                         if ($listaDepartamentos->rowCount() > 0) {
@@ -253,7 +267,12 @@
                                 echo '<td class="texto-centro">' . $fechaCreacionDepartamento->format('d/m/Y') . '</td>';
 
                                 // Formateo del numero a moneda española
-                                echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                                // Si el volumen es nulo se muestra un guion, igual que la fecha de baja
+                                if (is_null($oDepartamento->T02_VolumenDeNegocio)) {
+                                    echo '<td class="texto-derecha">-</td>';
+                                } else {
+                                    echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                                }
 
                                 // Comprobacion en la fecha de baja
                                 if (is_null($oDepartamento->T02_FechaBajaDepartamento)) {
@@ -266,8 +285,11 @@
                             }
                             
                             echo '</tbody>';
-                            echo '</table>';                                                  
-                        }                       
+                            echo '</table>';
+                        } else {
+                            // Si la busqueda no devuelve nada, se avisa en vez de dejar la pagina vacia
+                            echo "<p class='sin-resultados'>No se han encontrado departamentos con esa descripción.</p>";
+                        }
                     } catch (PDOException $miExcepcionPDO) { 
                         // Lanza la Exception PDOException cuando ocurre un error.
                         echo "<div class='error' style='text-align: center; margin-top: 20px;'>";
