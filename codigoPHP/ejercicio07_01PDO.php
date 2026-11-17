@@ -130,47 +130,74 @@
                                     // Instanciacion del objeto PDO
                                     $miDB = new PDO(HOST, USER, PASS);
 
-                                    // Iniciamos la transaccion para asegurar que o se importan todos, o ninguno
-                                    $miDB->beginTransaction();
-
-                                    // Preparamos la consulta de insercion
-                                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:CodDepartamento, :DescDepartamento, :FechaCreacionDepartamento, :VolumenDeNegocio, :FechaBajaDepartamento)';
-                                    $sentenciaPreparada = $miDB->prepare($sqlInsert);
-
-                                    $registrosImportados = 0;
-
-                                    // Recorremos cada departamento del array PHP
+                                    // 1. Validamos antes de insertar: ningun codigo puede existir ya en la tabla
+                                    //    ni estar repetido dentro del propio archivo (es la clave primaria)
+                                    $consultaCodigo = $miDB->prepare('SELECT T02_CodDepartamento FROM T02_Departamento WHERE T02_CodDepartamento = :codigo');
+                                    $aCodigosRepetidos = [];
+                                    $aCodigosLeidos = [];
                                     foreach ($aDepartamentos as $departamento) {
-
-                                        // Extraemos los valores. Si FechaBaja esta vacia, le asignamos null.
                                         $codigo = $departamento['CodDepartamento'];
-                                        $descripcion = $departamento['DescDepartamento'];
-                                        $fecha = $departamento['FechaCreacionDepartamento'];
-                                        $volumen = $departamento['VolumenDeNegocio'];
-                                        $fechaBaja = (!empty($departamento['FechaBajaDepartamento'])) ? $departamento['FechaBajaDepartamento'] : null;
+                                        $consultaCodigo->execute([':codigo' => $codigo]);
 
-                                        // Ejecutamos la consulta preparada pasando un array asociativo con los nombres de los campos
-                                        $sentenciaPreparada->execute([
-                                            ':CodDepartamento' => $codigo,
-                                            ':DescDepartamento' => $descripcion,
-                                            ':FechaCreacionDepartamento' => $fecha,
-                                            ':VolumenDeNegocio' => $volumen,
-                                            ':FechaBajaDepartamento' => $fechaBaja
-                                        ]);
-
-                                        $registrosImportados++;
+                                        if ($consultaCodigo->fetch(PDO::FETCH_ASSOC) || in_array($codigo, $aCodigosLeidos)) {
+                                            $aCodigosRepetidos[] = $codigo;
+                                        }
+                                        $aCodigosLeidos[] = $codigo;
                                     }
 
-                                    // Si el bucle termina sin errores, confirmamos la transacción
-                                    $miDB->commit();
+                                    // 2. Solo si no hay ningun codigo repetido se hace la transaccion con los INSERT
+                                    if (empty($aCodigosRepetidos)) {
+                                        // Iniciamos la transaccion para asegurar que o se importan todos, o ninguno
+                                        $miDB->beginTransaction();
 
-                                    echo "<div class='mensaje-exito'>";
-                                    echo "<h3>Importación completada con éxito.</h3>";
-                                    echo "<p>Se han importado <b>{$registrosImportados}</b> departamentos desde el archivo JSON a la base de datos.</p>";
-                                    echo "</div>";
+                                        // Preparamos la consulta de insercion
+                                        $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:CodDepartamento, :DescDepartamento, :FechaCreacionDepartamento, :VolumenDeNegocio, :FechaBajaDepartamento)';
+                                        $sentenciaPreparada = $miDB->prepare($sqlInsert);
+
+                                        $registrosImportados = 0;
+
+                                        // Recorremos cada departamento del array PHP
+                                        foreach ($aDepartamentos as $departamento) {
+
+                                            // Extraemos los valores. Si FechaBaja esta vacia, le asignamos null.
+                                            $codigo = $departamento['CodDepartamento'];
+                                            $descripcion = $departamento['DescDepartamento'];
+                                            $fecha = $departamento['FechaCreacionDepartamento'];
+                                            $volumen = $departamento['VolumenDeNegocio'];
+                                            $fechaBaja = (!empty($departamento['FechaBajaDepartamento'])) ? $departamento['FechaBajaDepartamento'] : null;
+
+                                            // Ejecutamos la consulta preparada pasando un array asociativo con los nombres de los campos
+                                            $sentenciaPreparada->execute([
+                                                ':CodDepartamento' => $codigo,
+                                                ':DescDepartamento' => $descripcion,
+                                                ':FechaCreacionDepartamento' => $fecha,
+                                                ':VolumenDeNegocio' => $volumen,
+                                                ':FechaBajaDepartamento' => $fechaBaja
+                                            ]);
+
+                                            $registrosImportados++;
+                                        }
+
+                                        // Si el bucle termina sin errores, confirmamos la transacción
+                                        $miDB->commit();
+
+                                        echo "<div class='mensaje-exito'>";
+                                        echo "<h3>Importación completada con éxito.</h3>";
+                                        echo "<p>Se han importado <b>{$registrosImportados}</b> departamentos desde el archivo JSON a la base de datos.</p>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='error'>";
+                                        echo "<h3 style='margin-top:0;'>No se ha importado nada.</h3>";
+                                        echo "<p>Estos códigos ya existen en la tabla o están repetidos en el archivo: <b>" . implode(', ', $aCodigosRepetidos) . "</b></p>";
+                                        echo "</div>";
+                                    }
                                 } catch (PDOException $miExceptionPDO) {
                                     // Si ocurre un error, deshacemos todos los cambios
-                                    $miDB->rollBack();
+                                    // Solo se deshace si hay una transaccion abierta: si fallo la conexion $miDB no existe
+                                    // y si el fallo fue despues del commit ya no queda nada que deshacer
+                                    if (isset($miDB) && $miDB->inTransaction()) {
+                                        $miDB->rollBack();
+                                    }
 
                                     echo "<div class='error'>";
                                     echo "<h3 style='margin-top:0;'>Error al importar en la base de datos.</h3>";
@@ -181,7 +208,13 @@
                                 } finally {
                                     unset($miDB);
                                 }
+                            } else {
+                                // json_decode devuelve null si el texto no es un JSON valido
+                                echo "<div class='error'>El archivo <b>departamentos.json</b> esta vacio o no es un JSON valido.</div>";
                             }
+                        } else {
+                            // Si no existe el archivo se avisa en vez de dejar la pagina en blanco
+                            echo "<div class='error'>No se ha encontrado el archivo <b>departamentos.json</b> en la carpeta tmp. Exporta primero los departamentos con el ejercicio 08.</div>";
                         }
                     }
                     ?>
