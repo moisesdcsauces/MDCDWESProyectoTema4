@@ -159,7 +159,6 @@
                 <?php
                 // Archivo con las variables de conexion a la base de datos
                 require_once '../config/configDBPDO.php';
-                require_once '../core/231018libreriaValidacion.php';
 
                 try {
                     // Instanciamiento del objeto PDO para establecer la conexion con mariadb
@@ -186,7 +185,7 @@
 
                     $miDB->beginTransaction(); // Deshabilito el modo autocommit
 
-                    // Preparacion de la sentencia SQL utilizando signos de interrogacion
+                    // Preparacion de la sentencia SQL con parametros con nombre (:codDepartamento...), que coinciden con las claves del array
                     $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:codDepartamento, :descripcionDepartamento, NOW(), :volumenDepartamento, NULL)';
                     $sentenciaPreparada = $miDB->prepare($sqlInsert);
 
@@ -224,7 +223,12 @@
                         echo '<td class="texto-centro">' . $fechaCreacionDepartamento->format('d/m/Y') . '</td>';
 
                         // Formateo del numero a moneda española
-                        echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                        // Si el volumen es nulo se muestra un guion, igual que la fecha de baja
+                        if (is_null($oDepartamento->T02_VolumenDeNegocio)) {
+                            echo '<td class="texto-derecha">-</td>';
+                        } else {
+                            echo '<td class="texto-derecha">' . number_format($oDepartamento->T02_VolumenDeNegocio, 2, ',', '.') . ' €</td>';
+                        }
 
                         // Comprobacion en la fecha de baja
                         if (is_null($oDepartamento->T02_FechaBajaDepartamento)) {
@@ -241,10 +245,18 @@
 
                 } catch (PDOException $miExcepcionPDO) { 
                     // Revierte o deshace los cambios en caso de error
-                    $miDB->rollBack();
+                    // Solo se deshace si hay una transaccion abierta: si fallo la conexion $miDB no existe
+                    // y si el fallo fue despues del commit ya no queda nada que deshacer
+                    $transaccionCancelada = false;
+                    if (isset($miDB) && $miDB->inTransaction()) {
+                        $miDB->rollBack();
+                        $transaccionCancelada = true;
+                    }
 
                     echo '<div class="error" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; border: 1px solid #f5c6cb;">';
-                    echo 'Transacción cancelada.<br/>';
+                    if ($transaccionCancelada) {
+                        echo 'Transacción cancelada.<br/>';
+                    }
                     echo 'Código del error: ' . $miExcepcionPDO->getCode() . '<br/>';
                     echo 'Mensaje de error: ' . $miExcepcionPDO->getMessage();
                     echo '</div>';
