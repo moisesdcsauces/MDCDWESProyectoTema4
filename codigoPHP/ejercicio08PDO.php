@@ -176,14 +176,21 @@
                                 
                                 // Guardamos el archivo XML generado en el servidor
                                 // Guarda el documento XML en un fichero: https://www.php.net/manual/es/domdocument.save.php
-                                $documentoXML->save($_SERVER["DOCUMENT_ROOT"] . '/MDCDWESProyectoTema4/tmp/departamentos.xml');
+                                // save() devuelve el numero de bytes escritos, o false si no ha podido guardar
+                                $xmlGenerado = $documentoXML->save($_SERVER["DOCUMENT_ROOT"] . '/MDCDWESProyectoTema4/tmp/departamentos.xml');
 
-                                // Mostramos el mensaje y el enlace web
-                                echo "<div class='mensaje-exito'>";
-                                echo "<h3>Exportacion completada con exito.</h3>";
-                                echo "<p>El archivo se ha guardado en: <b>".$_SERVER['DOCUMENT_ROOT'] ."/MDCDWESProyectoTema4/tmp/departamentos.xml</b></p>";
-                                echo "<a href='../tmp/departamentos.xml' target='_blank' style='color: #155724; font-weight: bold; text-decoration: underline;'>Ver archivo XML</a>";
-                                echo "</div>";                              
+                                if ($xmlGenerado !== false) {
+                                    // Mostramos el mensaje y el enlace web
+                                    echo "<div class='mensaje-exito'>";
+                                    echo "<h3>Exportacion completada con exito.</h3>";
+                                    echo "<p>El archivo se ha guardado en: <b>".$_SERVER['DOCUMENT_ROOT'] ."/MDCDWESProyectoTema4/tmp/departamentos.xml</b></p>";
+                                    echo "<a href='../tmp/departamentos.xml' target='_blank' style='color: #155724; font-weight: bold; text-decoration: underline;'>Ver archivo XML</a>";
+                                    echo "</div>";
+                                } else {
+                                    echo "<div class='error'>Error: No se pudo escribir el archivo XML. Verifica los permisos de la carpeta.</div>";
+                                }
+                            } else {
+                                echo "<div class='error'>No hay departamentos en la base de datos para exportar.</div>";
                             }
                         } catch (PDOException $miExceptionPDO) {
                             // Captura errores de PDO
