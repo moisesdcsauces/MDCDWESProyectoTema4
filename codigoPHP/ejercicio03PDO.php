@@ -201,6 +201,32 @@
                         // Valida el volumen de negocio en formato flotante monetario español (coma decimal). Uso del metodo estatico comprobarFloatMonetarioES
                         $aError['volumenNegocioDep'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST["volumenNegocioDep"], PHP_FLOAT_MAX, 0, 1);
 
+                        // el codigo es la clave primaria, asi que no puede existir ya en la tabla.
+                        if (empty($aError["codigoDep"])) {
+                            try {
+                                $miDB = new PDO(HOST, USER, PASS);
+
+                                // Consulta preparada
+                                $consultaCodigo = $miDB->prepare(
+                                        "SELECT T02_CodDepartamento
+                                     FROM T02_Departamento
+                                     WHERE T02_CodDepartamento = :codigoDep"
+                                );
+
+                                // Pasamos los parametros
+                                $consultaCodigo->execute([':codigoDep' => $_REQUEST["codigoDep"]]);
+
+                                // Si devuelve alguna fila, el codigo ya esta cogido
+                                if ($consultaCodigo->fetch(PDO::FETCH_ASSOC)) {
+                                    $aError["codigoDep"] = "Ya existe un departamento con ese código.";
+                                }
+                            } catch (PDOException $miExcepcionPDO) {
+                                $aError["codigoDep"] = "Error al comprobar el código: " . $miExcepcionPDO->getMessage();
+                            } finally {
+                                unset($miDB);
+                            }
+                        }
+
                         // Comprueba globalmente si existe algun mensaje de error almacenado en el array
                         foreach ($aError as $value) {
                             if (!empty($value)) {
@@ -225,23 +251,22 @@
                             // Instanciacion del objeto PDO para conectar a MariaDB usando las constantes del archivo de configuracion
                             $miDB = new PDO(HOST, USER, PASS);
 
-                            // Asignacion de variables preparadas para la inserción
-                            $sCodigoDepInsert = $aRespuesta["codigoDep"];
-                            $sDescripcionDepInsert = $aRespuesta["descripcionDep"];
-                            $sFechaCreacionDepInsert = $aRespuesta["fechaCreacionDep"]->format("Y-m-d");
-                            $svolumenNegocioDepInsert = $aRespuesta["volumenNegocioDep"];
+                            // Consulta preparada: los valores van como parametros, no metidos en la cadena SQL
+                            $insertar = $miDB->prepare(
+                                    "INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio)
+                                 VALUES (:codigoDep, :descripcionDep, :fechaCreacionDep, :volumenNegocioDep)"
+                            );
 
-                            // Construccion de la sentencia SQL para insertar el registro (codigo de juan)
-                            $sqlInsert = <<<sql
-                INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio) VALUES (
-                '$sCodigoDepInsert',
-                '$sDescripcionDepInsert',
-                '$sFechaCreacionDepInsert',
-                $svolumenNegocioDepInsert)
-            sql;
+                            // Pasamos los parametros desde el array de respuestas
+                            $insertar->execute([
+                                ':codigoDep' => $aRespuesta["codigoDep"],
+                                ':descripcionDep' => $aRespuesta["descripcionDep"],
+                                ':fechaCreacionDep' => $aRespuesta["fechaCreacionDep"]->format("Y-m-d"),
+                                ':volumenNegocioDep' => $aRespuesta["volumenNegocioDep"]
+                            ]);
 
-                            // Ejecucion de la consulta de insercion devuelviendo el numero de filas
-                            $numRegistros = $miDB->exec($sqlInsert);
+                            // rowCount() devuelve el numero de filas insertadas
+                            $numRegistros = $insertar->rowCount();
 
                             echo "<div class='mensaje-exito'>Departamento insertado correctamente. Filas afectadas: <b>" . $numRegistros . "</b></div>";
 
