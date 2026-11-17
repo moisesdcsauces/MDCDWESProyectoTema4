@@ -129,51 +129,72 @@
                                 // Verificamos que el XML no este vacío
                                 if ($listaDepartamentosXML->length > 0) {
 
-                                    // Iniciamos la transaccion para asegurar que o se importan todos, o ninguno
-                                    $miDB->beginTransaction();
-
-                                    // Preparamos la consulta de inserción con parámetros con nombre
-                                    $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:CodDepartamento, :DescDepartamento, :FechaCreacionDepartamento, :VolumenDeNegocio, :FechaBajaDepartamento)';
-                                    $sentenciaPreparada = $miDB->prepare($sqlInsert);
-
-                                    $registrosImportados = 0;
-
-                                    // Recorremos cada departamento del XML
+                                    // 1. Leemos todos los departamentos del XML en un array
+                                    $aDepartamentosImportar = [];
                                     foreach ($listaDepartamentosXML as $departamento) {
-
-                                        $codigo = $departamento->getElementsByTagName('CodDepartamento')->item(0)->nodeValue;
-                                        $descripcion = $departamento->getElementsByTagName('DescDepartamento')->item(0)->nodeValue;
-                                        $fecha = $departamento->getElementsByTagName('FechaCreacionDepartamento')->item(0)->nodeValue;
-                                        $volumen = $departamento->getElementsByTagName('VolumenDeNegocio')->item(0)->nodeValue;
                                         $nullFechaBaja = $departamento->getElementsByTagName('FechaBajaDepartamento')->item(0);
 
-                                        $fechaBaja = ($nullFechaBaja && trim($nullFechaBaja->nodeValue) !== '') ? $nullFechaBaja->nodeValue : null;
-
-                                        // Ejecutamos la consulta preparada pasando el array asociativo con los nombres de los campos
-                                        $sentenciaPreparada->execute([
-                                            ':CodDepartamento' => $codigo,
-                                            ':DescDepartamento' => $descripcion,
-                                            ':FechaCreacionDepartamento' => $fecha,
-                                            ':VolumenDeNegocio' => $volumen,
-                                            ':FechaBajaDepartamento' => $fechaBaja
-                                        ]);
-
-                                        $registrosImportados++;
+                                        $aDepartamentosImportar[] = [
+                                            ':CodDepartamento' => $departamento->getElementsByTagName('CodDepartamento')->item(0)->nodeValue,
+                                            ':DescDepartamento' => $departamento->getElementsByTagName('DescDepartamento')->item(0)->nodeValue,
+                                            ':FechaCreacionDepartamento' => $departamento->getElementsByTagName('FechaCreacionDepartamento')->item(0)->nodeValue,
+                                            ':VolumenDeNegocio' => $departamento->getElementsByTagName('VolumenDeNegocio')->item(0)->nodeValue,
+                                            ':FechaBajaDepartamento' => ($nullFechaBaja && trim($nullFechaBaja->nodeValue) !== '') ? $nullFechaBaja->nodeValue : null
+                                        ];
                                     }
 
-                                    // Si el bucle termina sin errores, confirmamos la transacción
-                                    $miDB->commit();
+                                    // 2. Validamos antes de insertar: ningun codigo puede existir ya en la tabla
+                                    //    ni estar repetido dentro del propio archivo (es la clave primaria)
+                                    $consultaCodigo = $miDB->prepare('SELECT T02_CodDepartamento FROM T02_Departamento WHERE T02_CodDepartamento = :codigo');
+                                    $aCodigosRepetidos = [];
+                                    $aCodigosLeidos = [];
+                                    foreach ($aDepartamentosImportar as $aDepartamento) {
+                                        $codigo = $aDepartamento[':CodDepartamento'];
+                                        $consultaCodigo->execute([':codigo' => $codigo]);
 
-                                    echo "<div class='mensaje-exito'>";
-                                    echo "<h3>Importación completada con éxito.</h3>";
-                                    echo "<p>Se han importado <b>{$registrosImportados}</b> departamentos desde el archivo XML a la base de datos.</p>";
-                                    echo "</div>";
+                                        if ($consultaCodigo->fetch(PDO::FETCH_ASSOC) || in_array($codigo, $aCodigosLeidos)) {
+                                            $aCodigosRepetidos[] = $codigo;
+                                        }
+                                        $aCodigosLeidos[] = $codigo;
+                                    }
+
+                                    // 3. Solo si no hay ningun codigo repetido se hace la transaccion con los INSERT
+                                    if (empty($aCodigosRepetidos)) {
+                                        // Iniciamos la transaccion para asegurar que o se importan todos, o ninguno
+                                        $miDB->beginTransaction();
+
+                                        // Preparamos la consulta de inserción con parámetros con nombre
+                                        $sqlInsert = 'INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:CodDepartamento, :DescDepartamento, :FechaCreacionDepartamento, :VolumenDeNegocio, :FechaBajaDepartamento)';
+                                        $sentenciaPreparada = $miDB->prepare($sqlInsert);
+
+                                        // Ejecutamos la consulta preparada con cada departamento leido
+                                        foreach ($aDepartamentosImportar as $aDepartamento) {
+                                            $sentenciaPreparada->execute($aDepartamento);
+                                        }
+
+                                        // Si el bucle termina sin errores, confirmamos la transacción
+                                        $miDB->commit();
+
+                                        echo "<div class='mensaje-exito'>";
+                                        echo "<h3>Importación completada con éxito.</h3>";
+                                        echo "<p>Se han importado <b>" . count($aDepartamentosImportar) . "</b> departamentos desde el archivo XML a la base de datos.</p>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='error'>";
+                                        echo "<h3 style='margin-top:0;'>No se ha importado nada.</h3>";
+                                        echo "<p>Estos códigos ya existen en la tabla o están repetidos en el archivo: <b>" . implode(', ', $aCodigosRepetidos) . "</b></p>";
+                                        echo "</div>";
+                                    }
                                 } else {
                                     echo "<div class='error'>El archivo XML esta vacio o no tiene el formato correcto.</div>";
                                 }
                             } catch (PDOException $miExceptionPDO) {
                                 // Si ocurre un error, deshacemos todos los cambios
-                                $miDB->rollBack();
+                                // Solo se deshace si hay una transaccion abierta: si fallo la conexion $miDB no existe
+                                // y si el fallo fue despues del commit ya no queda nada que deshacer
+                                if (isset($miDB) && $miDB->inTransaction()) {
+                                    $miDB->rollBack();
+                                }
 
                                 echo "<div class='error'>";
                                 echo "<h3 style='margin-top:0;'>Error al importar en la base de datos.</h3>";
@@ -184,6 +205,9 @@
                             } finally {
                                 unset($miDB);
                             }
+                        } else {
+                            // Si no existe el archivo se avisa en vez de dejar la pagina en blanco
+                            echo "<div class='error'>No se ha encontrado el archivo <b>departamentos.xml</b> en la carpeta tmp. Exporta primero los departamentos con el ejercicio 08.</div>";
                         }
                     }
                     ?>
