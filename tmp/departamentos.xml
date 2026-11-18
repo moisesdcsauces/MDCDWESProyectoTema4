@@ -22,31 +22,10 @@
     <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
-    <CodDepartamento>NFS</CodDepartamento>
-    <DescDepartamento>Departamento Need for Speed</DescDepartamento>
-    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
-    <VolumenDeNegocio>15000.5</VolumenDeNegocio>
-    <FechaBajaDepartamento></FechaBajaDepartamento>
-  </departamento>
-  <departamento>
-    <CodDepartamento>PRA</CodDepartamento>
-    <DescDepartamento>Departamento PR Acho</DescDepartamento>
-    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
-    <VolumenDeNegocio>12345</VolumenDeNegocio>
-    <FechaBajaDepartamento></FechaBajaDepartamento>
-  </departamento>
-  <departamento>
     <CodDepartamento>TEC</CodDepartamento>
     <DescDepartamento>Tecnología</DescDepartamento>
     <FechaCreacionDepartamento>2024-01-15 09:00:00</FechaCreacionDepartamento>
     <VolumenDeNegocio>310000</VolumenDeNegocio>
-    <FechaBajaDepartamento></FechaBajaDepartamento>
-  </departamento>
-  <departamento>
-    <CodDepartamento>TST</CodDepartamento>
-    <DescDepartamento>Departamento de testeo</DescDepartamento>
-    <FechaCreacionDepartamento>2026-11-03 09:23:49</FechaCreacionDepartamento>
-    <VolumenDeNegocio>98765.4</VolumenDeNegocio>
     <FechaBajaDepartamento></FechaBajaDepartamento>
   </departamento>
   <departamento>
